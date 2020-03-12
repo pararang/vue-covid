@@ -1,20 +1,20 @@
 <template>
   <div id="app">
     <img alt="Corona logo" src="./assets/virus_corona.png">
-    <Header title="Informasi Covid 19"/>
-    <!-- <Current msg="Message"/> -->
+    <Header title="DATA COVID-19"/>
+    <DataGlobal></DataGlobal>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
-// import Current from './components/Current.vue'
+import DataGlobal from './components/DataGlobal.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-    // Current
+    DataGlobal
   }
 }
 </script>

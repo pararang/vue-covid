@@ -2,8 +2,7 @@
   <div class="hello">
     <h1>{{ title }}</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
+      Data didapatkan dari <a href="https://github.com/mathdroid/covid-19-api">mathdroid/covid-19-api</a> 
     </p>
   </div>
 </template>
