@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-header alert alert-danger h1" role="alert">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            Total: {{ totalConfirmedGlobal }}
+                            Total: {{ formatNumber(totalConfirmedGlobal) }}
                         </div>
                     <!-- <div class="card-header">
                         <span>Sebaran</span>
@@ -25,9 +25,9 @@
                             <tbody>
                                 <tr v-for="detail in detailConfirmedGlobal">
                                     <td class="text-left">{{ getLocation(detail) }}</td>
-                                    <td class="text-right">{{ detail.confirmed }}</td>
-                                    <td class="text-right">{{ detail.deaths }}</td>
-                                    <td class="text-right">{{ detail.recovered }} </td>
+                                    <td class="text-right">{{ formatNumber(detail.confirmed) }}</td>
+                                    <td class="text-right">{{ formatNumber(detail.deaths) }}</td>
+                                    <td class="text-right">{{ formatNumber(detail.recovered) }} </td>
                                     <td>{{ detail.lastUpdate | moment("YYYY/MM/DD HH:mm:ss") }}</td>
                                 </tr>
                             </tbody>
@@ -45,6 +45,8 @@
     import {
         APIService
     } from '../APIService';
+
+    import numeral from 'numeral';
 
     const apiService = new APIService();
 
@@ -86,7 +88,10 @@
                 } else {
                     return 'n/a';
                 }
-            }
+            },
+            formatNumber(x) {
+				    return numeral(x).format('0,0');
+				}
         },
 
         mounted() {
