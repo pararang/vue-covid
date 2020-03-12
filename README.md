@@ -20,5 +20,5 @@ npm run build
 npm run lint
 ```
 
-### Data Resourde
+### Data Resource
 See [mathdroid/covid19](https://covid19.mathdro.id).
