@@ -16,10 +16,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-left">Lokasi</th>
-                                    <th>Kasus</th>
-                                    <th>Meninggal</th>
-                                    <th>Pulih</th>
-                                    <th>Update Terakhir </th>
+                                    <th class="text-right">Kasus</th>
+                                    <th class="text-right">Meninggal</th>
+                                    <th class="text-right">Pulih</th>
+                                    <th class="text-right">Update Terakhir</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -28,7 +28,7 @@
                                     <td class="text-right">{{ detail.confirmed }}</td>
                                     <td class="text-right">{{ detail.deaths }}</td>
                                     <td class="text-right">{{ detail.recovered }} </td>
-                                    <td class="text-right">{{ detail.lastUpdate | moment("YYYY/MM/DD HH:mm:ss") }}</td>
+                                    <td>{{ detail.lastUpdate | moment("YYYY/MM/DD HH:mm:ss") }}</td>
                                 </tr>
                             </tbody>
                         </table>
