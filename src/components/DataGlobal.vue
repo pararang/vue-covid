@@ -19,7 +19,7 @@
                                     <th class="text-right">Kasus</th>
                                     <th class="text-right">Meninggal</th>
                                     <th class="text-right">Pulih</th>
-                                    <th class="text-right">Update Terakhir</th>
+                                    <th>Update Terakhir</th>
                                 </tr>
                             </thead>
                             <tbody>
