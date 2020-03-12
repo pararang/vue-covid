@@ -90,8 +90,8 @@
                 }
             },
             formatNumber(x) {
-				    return numeral(x).format('0,0');
-				}
+                return numeral(x).format('0,0');
+            }
         },
 
         mounted() {
