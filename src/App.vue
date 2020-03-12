@@ -2,16 +2,19 @@
   <div id="app">
     <img alt="Corona logo" src="./assets/virus_corona.png">
     <Header title="Informasi Covid 19"/>
+    <!-- <Current msg="Message"/> -->
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+// import Current from './components/Current.vue'
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    // Current
   }
 }
 </script>
