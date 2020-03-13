@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="card">
+        <div class="card-header">Data Global</div>
         <table class="table">
             <thead>
             <tr>
@@ -13,9 +14,9 @@
             <tbody>
             <tr v-for="detail in detailConfirmedGlobal">
                 <td class="text-left">{{ getLocation(detail) }}</td>
-                <td class="text-right">{{ detail.confirmed }}</td>
-                <td class="text-right">{{ detail.deaths }}</td>
-                <td class="text-right">{{ detail.recovered }} </td>
+                <td class="text-right">{{ formatNumber(detail.confirmed) }}</td>
+                <td class="text-right">{{ formatNumber(detail.deaths) }}</td>
+                <td class="text-right">{{ formatNumber(detail.recovered) }} </td>
                 <td>{{ detail.lastUpdate | moment("YYYY/MM/DD HH:mm:ss") }}</td>
             </tr>
             </tbody>
@@ -27,6 +28,8 @@
     import {
         APIService
     } from '../APIService';
+    import numeral from 'numeral';
+
 
     const apiService = new APIService();
 
@@ -53,6 +56,9 @@
                 } else {
                     return 'n/a';
                 }
+            },
+            formatNumber(x) {
+                return numeral(x).format('0,0');
             }
         },
         mounted() {

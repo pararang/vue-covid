@@ -19,6 +19,7 @@
         name: "HeaderSummary",
         data() {
             return {
+                title: "COVID-19",
                 urlImageSummary: String,
             };
         },

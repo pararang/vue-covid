@@ -19,4 +19,10 @@ export class APIService {
         let data = axios.get(url).then(response => response.data);
         return data;
     }
+
+    getDataDailyGlobal() {
+        const url = `${API_URL}/daily`;
+        let data = axios.get(url).then(response => response.data);
+        return data;
+    }
 }

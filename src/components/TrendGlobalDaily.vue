@@ -1,0 +1,112 @@
+<template>
+    <div class="card">
+        <div class="card-header">
+            Tren Kasus Global
+        </div>
+<!--        <div class="card-body">-->
+<!--            <trend-->
+<!--                    :data="dataTrendMainlandChina"-->
+<!--                    :gradient="['#6fa8dc', '#42b983', '#2c3e50']"-->
+<!--                    auto-draw-->
+<!--                    smooth-->
+<!--            >-->
+<!--            </trend>-->
+<!--            <trend-->
+<!--                    :data="dataTrendOtherLocations"-->
+<!--                    :gradient="['#6fa8dc', '#42b983', '#2c3e50']"-->
+<!--                    auto-draw-->
+<!--                    smooth-->
+<!--            ></trend>-->
+<!--        </div>-->
+        <div id="chart">
+            <apexchart type="area" height="350" :options="chartOptions" :series="series"></apexchart>
+        </div>
+    </div>
+
+</template>
+
+<script>
+    import {
+        APIService
+    } from '../APIService';
+    import VueApexCharts from 'vue-apexcharts'
+    import moment from 'moment'
+
+    const apiService = new APIService();
+    export default {
+        name: "TrendGlobalDaily",
+        components: {
+            apexchart: VueApexCharts,
+        },
+        data() {
+            return {
+                dataTrendMainlandChina: [],
+                dataTrendOtherLocations: [],
+                xAxisDate: [],
+                series: [{
+                    name: 'Mainland China',
+                    data: []
+                }, {
+                    name: 'Other locations',
+                    data: []
+                }],
+                chartOptions: {
+                    chart: {
+                        // height: 350,
+                        type: 'area'
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'smooth'
+                    },
+                    xaxis: {
+                        type: 'datetime',
+                        categories: [], //2020-01-27T12:00:00+07:00
+                        // show: true,
+                        // rotate: -45,
+                        // rotateAlways: false,
+                        // hideOverlappingLabels: true,
+                    },
+                    tooltip: {
+                        x: {
+                            // show: true,
+                            format: 'dd MMM YYYY',
+                            // formatter: undefined,
+                        }
+                    },
+                },
+            };
+        },
+        methods: {
+            getDataTrendGlobal() {
+                const listTotalMainlandChina = [];
+                const listTotalOtherLocations = [];
+                const listAxisDateX = [];
+                apiService.getDataDailyGlobal().then((data) => {
+                    data.forEach(function (day) {
+                        listTotalMainlandChina.push(day.mainlandChina);
+                        listTotalOtherLocations.push(day.otherLocations);
+                        let dateReport = moment(day.reportDate).toISOString();
+                        listAxisDateX.push(dateReport)
+                    });
+                });
+                this.dataTrendMainlandChina = listTotalMainlandChina;
+                this.dataTrendOtherLocations = listTotalOtherLocations;
+                this.xAxisDate = listAxisDateX;
+
+                this.series[0].data = listTotalMainlandChina;
+                this.series[1].data = listTotalOtherLocations;
+                this.chartOptions.xaxis.categories = listAxisDateX;
+            },
+        },
+        mounted() {
+            this.getDataTrendGlobal();
+        },
+    }
+</script>
+
+<style scoped>
+
+</style>

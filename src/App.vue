@@ -1,21 +1,27 @@
 <template>
     <div id="app">
-      <HeaderSummary/>
-      <div class="card-body">
-        <TableDetailGlobal/>
-      </div>
+        <HeaderSummary/>
+        <TrendGlobalDaily/>
+        <SummaryTrendIndonesia/>
+        <div class="card-body">
+            <TableDetailGlobal/>
+        </div>
     </div>
 </template>
 
 <script>
     import HeaderSummary from './components/HeaderSummary.vue'
     import TableDetailGlobal from './components/TableDetailGlobal.vue'
+    import TrendGlobalDaily from "./components/TrendGlobalDaily";
+    import SummaryTrendIndonesia from "./components/SummaryTrendIndonesia";
 
     export default {
         name: 'App',
         components: {
             HeaderSummary,
-            TableDetailGlobal
+            TableDetailGlobal,
+            TrendGlobalDaily,
+            SummaryTrendIndonesia
         }
     }
 </script>
@@ -29,10 +35,10 @@
         color: #2c3e50;
         margin-top: 60px;
     }
+
     .card-body {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>
