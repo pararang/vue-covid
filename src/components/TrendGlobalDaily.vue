@@ -4,22 +4,22 @@
             Tren Kasus Global
         </div>
 <!--        <div class="card-body">-->
-<!--            <trend-->
-<!--                    :data="dataTrendMainlandChina"-->
-<!--                    :gradient="['#6fa8dc', '#42b983', '#2c3e50']"-->
-<!--                    auto-draw-->
-<!--                    smooth-->
-<!--            >-->
-<!--            </trend>-->
-<!--            <trend-->
-<!--                    :data="dataTrendOtherLocations"-->
-<!--                    :gradient="['#6fa8dc', '#42b983', '#2c3e50']"-->
-<!--                    auto-draw-->
-<!--                    smooth-->
-<!--            ></trend>-->
+<!--                    <trend-->
+<!--                            :data="dataTrendMainlandChina"-->
+<!--                            :gradient="['#6fa8dc', '#42b983', '#2c3e50']"-->
+<!--                            auto-draw-->
+<!--                            smooth-->
+<!--                    >-->
+<!--                    </trend>-->
+<!--                    <trend-->
+<!--                            :data="dataTrendOtherLocations"-->
+<!--                            :gradient="['#ff0000', '#fffe00', '#00ff1a']"-->
+<!--                            auto-draw-->
+<!--                            smooth-->
+<!--                    ></trend>-->
 <!--        </div>-->
         <div id="chart">
-            <apexchart type="area" height="350" :options="chartOptions" :series="series"></apexchart>
+            <apexchart height="350" :options="chartOptions" :series="series"></apexchart>
         </div>
     </div>
 

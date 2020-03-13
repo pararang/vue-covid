@@ -30,7 +30,9 @@
                 });
             }
         },
-
+        beforeMount() {
+            this.getUrlImageSummary();
+        },
         mounted() {
             this.getUrlImageSummary();
         },
