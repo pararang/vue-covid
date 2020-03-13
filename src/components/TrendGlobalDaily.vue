@@ -52,7 +52,7 @@
                 }],
                 chartOptions: {
                     chart: {
-                        // height: 350,
+                        height: 350,
                         type: 'area'
                     },
                     dataLabels: {
@@ -63,17 +63,11 @@
                     },
                     xaxis: {
                         type: 'datetime',
-                        categories: [], //2020-01-27T12:00:00+07:00
-                        // show: true,
-                        // rotate: -45,
-                        // rotateAlways: false,
-                        // hideOverlappingLabels: true,
+                        categories: [] //2020-01-27T12:00:00+07:00
                     },
                     tooltip: {
                         x: {
-                            // show: true,
-                            format: 'dd MMM YYYY',
-                            // formatter: undefined,
+                            format: 'dd MMM',
                         }
                     },
                 },
