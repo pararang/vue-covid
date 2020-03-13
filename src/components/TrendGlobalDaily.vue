@@ -67,7 +67,7 @@
                     },
                     tooltip: {
                         x: {
-                            format: 'dd MMM',
+                            format: 'dd/MM/yy',
                         }
                     },
                 },
