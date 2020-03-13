@@ -14,10 +14,9 @@ export class APIService {
         return data;
     }
 
-    getDataGlobalConfirmedDetail() {
+    getDataConfirmedDetailGlobal() {
         const url = `${API_URL}/confirmed`;
         let data = axios.get(url).then(response => response.data);
         return data;
     }
-
 }

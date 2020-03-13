@@ -72,7 +72,7 @@
                 });
             },
             getDataConfirmedDetail() {
-                apiService.getDataGlobalConfirmedDetail().then((data) => {
+                apiService.getDataDetailGlobal().then((data) => {
                     this.detailConfirmedGlobal = data;
                 });
             },
