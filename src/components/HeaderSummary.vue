@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img class="img-fluid" alt="Corona logo" :src="urlImageSummary" @load="onImgLoad">
+        <img v-show="isImageLoaded" class="img-fluid" alt="Corona logo" :src="urlImageSummary" @load="onImgLoad">
         <h1 v-if="!isImageLoaded"><strong>{{ title }}</strong></h1>
         <p>
             Data didapatkan dari <a href="https://github.com/mathdroid/covid-19-api">mathdroid/covid-19-api</a>

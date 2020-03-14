@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="container">
-        <HeaderSummary :title="COR"/>
+        <HeaderSummary/>
         <TrendGlobalDaily/>
         <SummaryTrendIndonesia/>
         <TableDetailGlobal/>
@@ -34,8 +34,13 @@
         margin-top: 60px;
     }
 
-    .container {
-
+    .card {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .card-header {
+        font-size: large;
+        font-weight: bold;
     }
 
     .card-body {
