@@ -4,6 +4,7 @@
         <TrendGlobalDaily/>
         <SummaryTrendIndonesia/>
         <TableDetailGlobal/>
+        <Footer/>
     </div>
 </template>
 
@@ -12,6 +13,7 @@
     import TableDetailGlobal from './components/TableDetailGlobal.vue'
     import TrendGlobalDaily from "./components/TrendGlobalDaily";
     import SummaryTrendIndonesia from "./components/SummaryTrendIndonesia";
+    import Footer from "./components/Footer";
 
     export default {
         name: 'App',
@@ -19,7 +21,8 @@
             HeaderSummary,
             TableDetailGlobal,
             TrendGlobalDaily,
-            SummaryTrendIndonesia
+            SummaryTrendIndonesia,
+            Footer
         }
     }
 </script>

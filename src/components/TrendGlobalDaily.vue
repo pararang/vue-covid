@@ -99,8 +99,6 @@
             },
         },
         mounted() {
-            console.log('mounted');
-            console.log(this.chartOptions.xaxis.categories);
             this.getDataTrendGlobal();
         },
     }
