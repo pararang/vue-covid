@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import { APIServiceGithub } from "../../APIServiceGithub";
+    import { APIServiceGithub } from "../../services/APIServiceGithub";
 
     const apiGithub = new APIServiceGithub();
 

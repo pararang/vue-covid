@@ -11,7 +11,7 @@
 <script>
     import {
         APIServiceCovid
-    } from '../APIServiceCovid';
+    } from '../services/APIServiceCovid';
 
     const apiService = new APIServiceCovid();
 

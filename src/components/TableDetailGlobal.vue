@@ -29,7 +29,7 @@
 <script>
     import {
         APIServiceCovid
-    } from '../APIServiceCovid';
+    } from '../services/APIServiceCovid';
     import numeral from 'numeral';
 
 

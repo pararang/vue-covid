@@ -1,13 +1,13 @@
 <template>
     <div class="card">
-        <div class="card-header">Summary Indonesia</div>
+        <div class="card-header">Indonesia</div>
         <div class="card-body">
             <GChart
                     type="BarChart"
                     :data="chartData"
                     :options="chartOptions"
             />
-            <p class="small">Terakhir diperbaharui: {{ lastUpdate }}</p>
+            <p class="small">Pembaharuan terakhir: {{ lastUpdate }}</p>
         </div>
     </div>
 </template>
@@ -16,7 +16,7 @@
     import { GChart } from 'vue-google-charts'
     import {
         APIServiceCovid
-    } from '../APIServiceCovid';
+    } from '../services/APIServiceCovid';
     import moment from 'moment';
 
 
@@ -49,26 +49,17 @@
         methods: {
             renderChartData() {
                 apiService.getDataSummaryPerCountry(this.countryCodeIndonesia).then((data) => {
-                    this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }]);
-
-                    let chartElementRecovered = ['Pulih', data.recovered.value, '#0eff00'];
-                    this.chartData.push(chartElementRecovered);
-
-                    let chartElementDeaths = ['Meninggal', data.deaths.value, '#ff0000'];
-                    this.chartData.push(chartElementDeaths);
-
-                    let chartElementConfirmed = ['Terinfeksi', data.confirmed.value, '#ffe100'];
-                    this.chartData.push(chartElementConfirmed);
-
+                    this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
+                    this.chartData.push(['Pulih', data.recovered.value, '#0eff00', data.recovered.value]);
+                    this.chartData.push(['Meninggal', data.deaths.value, '#ff0000', data.deaths.value]);
+                    this.chartData.push(['Terinfeksi', data.confirmed.value, '#ffe100', data.confirmed.value]);
                     this.lastUpdate = moment(data.lastUpdate).format('DD/MM/YYYY HH:mm:ss ZZ');
                 });
             },
         },
 
         mounted() {
-            console.log(this.chartData);
             this.renderChartData();
-            console.log(this.chartData);
         },
     }
 </script>
