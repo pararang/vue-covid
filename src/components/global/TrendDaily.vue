@@ -31,7 +31,7 @@
 <script>
     import {
         APIServiceCovid
-    } from '../services/APIServiceCovid';
+    } from '../../services/APIServiceCovid';
     import VueApexCharts from 'vue-apexcharts'
     import moment from 'moment'
 

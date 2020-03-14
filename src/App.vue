@@ -10,12 +10,12 @@
 </template>
 
 <script>
-    import HeaderSummary from './components/HeaderSummary.vue'
-    import TableDetailGlobal from './components/TableDetailGlobal.vue'
+    import HeaderSummary from './components/global/Summary.vue'
+    import TableDetailGlobal from './components/global/DataTable.vue'
     // import TrendGlobalDaily from "./components/TrendGlobalDaily";
     // import SummaryTrendIndonesia from "./components/SummaryTrendIndonesia";
     import Footer from "./components/footer/Footer";
-    import SummaryIndonesia from "./components/SummaryIndonesia";
+    import SummaryIndonesia from "./components/indonesia/Summary";
 
     export default {
         name: 'App',

@@ -16,7 +16,7 @@
     import { GChart } from 'vue-google-charts'
     import {
         APIServiceCovid
-    } from '../services/APIServiceCovid';
+    } from '../../services/APIServiceCovid';
     import moment from 'moment';
 
 
