@@ -1,8 +1,9 @@
 <template>
     <div id="app" class="container">
         <HeaderSummary/>
-        <TrendGlobalDaily/>
-        <SummaryTrendIndonesia/>
+        <SummaryIndonesia/>
+<!--        <TrendGlobalDaily/>-->
+<!--        <SummaryTrendIndonesia/>-->
         <TableDetailGlobal/>
         <Footer/>
     </div>
@@ -11,17 +12,19 @@
 <script>
     import HeaderSummary from './components/HeaderSummary.vue'
     import TableDetailGlobal from './components/TableDetailGlobal.vue'
-    import TrendGlobalDaily from "./components/TrendGlobalDaily";
-    import SummaryTrendIndonesia from "./components/SummaryTrendIndonesia";
-    import Footer from "./components/Footer/Footer";
+    // import TrendGlobalDaily from "./components/TrendGlobalDaily";
+    // import SummaryTrendIndonesia from "./components/SummaryTrendIndonesia";
+    import Footer from "./components/footer/Footer";
+    import SummaryIndonesia from "./components/SummaryIndonesia";
 
     export default {
         name: 'App',
         components: {
             HeaderSummary,
             TableDetailGlobal,
-            TrendGlobalDaily,
-            SummaryTrendIndonesia,
+            SummaryIndonesia,
+            // TrendGlobalDaily,
+            // SummaryTrendIndonesia,
             Footer
         }
     }

@@ -1,6 +1,6 @@
 <template>
     <footer class="page-footer font-small blue">
-        <github></github>
+        <AboutRepo></AboutRepo>
     </footer>
 </template>
 
@@ -11,7 +11,7 @@
     export default {
         name: "Footer",
         components: {
-            github: AboutRepo,
+            AboutRepo,
         },
         data() {
             return {

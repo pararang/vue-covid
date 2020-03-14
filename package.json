@@ -13,12 +13,13 @@
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.6.1",
     "core-js": "^3.6.4",
+    "moment": "latest",
     "numeral": "^2.0.6",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.5.2",
+    "vue-google-charts": "^0.3.2",
     "vue-moment": "^4.1.0",
-    "vuetrend": "^0.3.4",
-    "moment": "latest"
+    "vuetrend": "^0.3.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",

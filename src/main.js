@@ -3,6 +3,7 @@ import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm'
 import Trend from "vuetrend"
 import VueApexCharts from "vue-apexcharts"
+import VueGoogleCharts from 'vue-google-charts'
 
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -14,6 +15,7 @@ Vue.use(BootstrapVue);
 Vue.use(require('vue-moment'));
 Vue.use(Trend);
 Vue.use(VueApexCharts);
+Vue.use(VueGoogleCharts);
 
 new Vue({
   render: h => h(App),
