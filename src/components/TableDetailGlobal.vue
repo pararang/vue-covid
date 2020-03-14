@@ -1,26 +1,28 @@
 <template>
     <div class="card">
         <div class="card-header">Data Global</div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th class="text-left">Lokasi</th>
-                <th class="text-right">Kasus</th>
-                <th class="text-right">Meninggal</th>
-                <th class="text-right">Pulih</th>
-                <th>Update Terakhir</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="detail in detailConfirmedGlobal">
-                <td class="text-left">{{ getLocation(detail) }}</td>
-                <td class="text-right">{{ formatNumber(detail.confirmed) }}</td>
-                <td class="text-right">{{ formatNumber(detail.deaths) }}</td>
-                <td class="text-right">{{ formatNumber(detail.recovered) }} </td>
-                <td>{{ detail.lastUpdate | moment("YYYY/MM/DD HH:mm:ss") }}</td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="text-left">Lokasi</th>
+                    <th class="text-right">Kasus</th>
+                    <th class="text-right">Meninggal</th>
+                    <th class="text-right">Pulih</th>
+                    <th>Update Terakhir</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="detail in detailConfirmedGlobal">
+                    <td class="text-left">{{ getLocation(detail) }}</td>
+                    <td class="text-right">{{ formatNumber(detail.confirmed) }}</td>
+                    <td class="text-right">{{ formatNumber(detail.deaths) }}</td>
+                    <td class="text-right">{{ formatNumber(detail.recovered) }} </td>
+                    <td>{{ detail.lastUpdate | moment("YYYY/MM/DD HH:mm:ss") }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 

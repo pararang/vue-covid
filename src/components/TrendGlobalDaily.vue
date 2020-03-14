@@ -18,9 +18,12 @@
 <!--                            smooth-->
 <!--                    ></trend>-->
 <!--        </div>-->
-        <div id="chart">
-            <apexchart height="350" :options="chartOptions" :series="series"></apexchart>
+        <div class="card-body">
+            <div id="chart">
+                <apexchart height="350" :options="chartOptions" :series="series"></apexchart>
+            </div>
         </div>
+
     </div>
 
 </template>
@@ -90,12 +93,14 @@
                 this.dataTrendOtherLocations = listTotalOtherLocations;
                 this.xAxisDate = listAxisDateX;
 
+                this.chartOptions.xaxis.categories = listAxisDateX;
                 this.series[0].data = listTotalMainlandChina;
                 this.series[1].data = listTotalOtherLocations;
-                this.chartOptions.xaxis.categories = listAxisDateX;
             },
         },
         mounted() {
+            console.log('mounted');
+            console.log(this.chartOptions.xaxis.categories);
             this.getDataTrendGlobal();
         },
     }

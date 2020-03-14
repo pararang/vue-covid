@@ -1,11 +1,9 @@
 <template>
-    <div id="app">
-        <HeaderSummary/>
+    <div id="app" class="container">
+        <HeaderSummary :title="COR"/>
         <TrendGlobalDaily/>
         <SummaryTrendIndonesia/>
-        <div class="card-body">
-            <TableDetailGlobal/>
-        </div>
+        <TableDetailGlobal/>
     </div>
 </template>
 
@@ -36,9 +34,13 @@
         margin-top: 60px;
     }
 
+    .container {
+
+    }
+
     .card-body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        /*display: flex;*/
+        /*justify-content: center;*/
+        /*align-items: center;*/
     }
 </style>
