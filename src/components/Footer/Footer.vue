@@ -1,16 +1,18 @@
 <template>
     <footer class="page-footer font-small blue">
-        <div class="footer-copyright text-center py-3">© 2020
-            <a href="https://pararang.github.io/"> Muhammad Ikhsan</a>
-        </div>
+        <github></github>
     </footer>
 </template>
 
 <script>
     import moment from "moment";
+    import AboutRepo from "./AboutRepo";
 
     export default {
         name: "Footer",
+        components: {
+            github: AboutRepo,
+        },
         data() {
             return {
                 year: 0,

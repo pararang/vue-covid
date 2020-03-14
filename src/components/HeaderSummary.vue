@@ -10,10 +10,10 @@
 
 <script>
     import {
-        APIService
-    } from '../APIService';
+        APIServiceCovid
+    } from '../APIServiceCovid';
 
-    const apiService = new APIService();
+    const apiService = new APIServiceCovid();
 
     export default {
         name: "HeaderSummary",

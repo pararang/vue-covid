@@ -28,12 +28,12 @@
 
 <script>
     import {
-        APIService
-    } from '../APIService';
+        APIServiceCovid
+    } from '../APIServiceCovid';
     import numeral from 'numeral';
 
 
-    const apiService = new APIService();
+    const apiService = new APIServiceCovid();
 
     export default {
         name: "TableDetailGlobal",

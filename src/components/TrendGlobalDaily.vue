@@ -30,12 +30,12 @@
 
 <script>
     import {
-        APIService
-    } from '../APIService';
+        APIServiceCovid
+    } from '../APIServiceCovid';
     import VueApexCharts from 'vue-apexcharts'
     import moment from 'moment'
 
-    const apiService = new APIService();
+    const apiService = new APIServiceCovid();
     export default {
         name: "TrendGlobalDaily",
         components: {

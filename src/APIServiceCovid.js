@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = 'https://covid19.mathdro.id/api';
 
-export class APIService {
+export class APIServiceCovid {
 
     constructor() {
         

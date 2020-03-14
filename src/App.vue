@@ -13,7 +13,7 @@
     import TableDetailGlobal from './components/TableDetailGlobal.vue'
     import TrendGlobalDaily from "./components/TrendGlobalDaily";
     import SummaryTrendIndonesia from "./components/SummaryTrendIndonesia";
-    import Footer from "./components/Footer";
+    import Footer from "./components/Footer/Footer";
 
     export default {
         name: 'App',
