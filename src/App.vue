@@ -1,30 +1,30 @@
 <template>
     <div id="app" class="container">
-        <HeaderSummary/>
+        <SummaryGlobal/>
         <SummaryIndonesia/>
-<!--        <TrendGlobalDaily/>-->
-<!--        <SummaryTrendIndonesia/>-->
-        <TableDetailGlobal/>
+       <TrendGlobalDaily/>
+        <!-- <DataTableIndonesia/> -->
+        <DataTableGlobal/>
         <Footer/>
     </div>
 </template>
 
 <script>
-    import HeaderSummary from './components/global/Summary.vue'
-    import TableDetailGlobal from './components/global/DataTable.vue'
-    // import TrendGlobalDaily from "./components/TrendGlobalDaily";
-    // import SummaryTrendIndonesia from "./components/SummaryTrendIndonesia";
-    import Footer from "./components/footer/Footer";
+    import SummaryGlobal from './components/global/Summary'
     import SummaryIndonesia from "./components/indonesia/Summary";
+    // import DataTableIndonesia from "./components/indonesia/DataTable";
+    import TrendGlobalDaily from "./components/global/TrendDaily";
+    import DataTableGlobal from './components/global/DataTable'
+    import Footer from "./components/footer/Footer";
 
     export default {
         name: 'App',
         components: {
-            HeaderSummary,
-            TableDetailGlobal,
+            SummaryGlobal,
             SummaryIndonesia,
-            // TrendGlobalDaily,
-            // SummaryTrendIndonesia,
+            // DataTableIndonesia,
+            TrendGlobalDaily,
+            DataTableGlobal,
             Footer
         }
     }

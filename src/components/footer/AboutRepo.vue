@@ -3,7 +3,7 @@
         <div class="footer-copyright text-center py-3">© 2020
             <a :href="repoUrl">{{ repoDescription }}</a>
             <p class="small">|
-            <span v-for="people in repoContributors">
+            <span v-for="people in repoContributors" v-bind:key="people.login">
                 <a :href="people.html_url"> {{ people.login }} </a>|
             </span>
             </p>

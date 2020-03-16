@@ -16,7 +16,7 @@
     const apiService = new APIServiceCovid();
 
     export default {
-        name: "HeaderSummary",
+        name: "SummaryGlobal",
         data() {
             return {
                 title: "COVID-19",
