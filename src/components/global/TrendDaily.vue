@@ -50,7 +50,7 @@
             renderDataTrendGlobal() {
                 apiService.getDataDailyGlobal().then((data) => {
                     this.chartData.push(['Tanggal', 'Global', 'China (Mainland)', 'Lokasi lainnya']);
-                    console.log(data.length);
+                    // console.log(data.length);
                     let vAxisInterval = 20000;
                     let maxVAxis = 0;
                     // let ticks = [];

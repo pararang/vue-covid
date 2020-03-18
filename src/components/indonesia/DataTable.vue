@@ -56,7 +56,7 @@
         methods: {
             getDataConfirmedDetail() {
                 apiKawalKorona.getAllData().then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     this.dataSet = data;
                     var lines = data.split(/\r\n|\n/);
 
@@ -70,7 +70,7 @@
 
                     for (let j = 1; j < lines.length; j++) {
                         let values = lines[j].split(','); // Split up the comma seperated values
-                        console.log(values);
+                        // console.log(values);
 
                     }
                 });

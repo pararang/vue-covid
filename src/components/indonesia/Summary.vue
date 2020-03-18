@@ -17,10 +17,14 @@
     import {
         APIServiceCovid
     } from '../../services/APIServiceCovid';
+    import {
+        APIServiceCovidJakarta
+    } from '../../services/APIServiceCovidJakarta';
     import moment from 'moment';
 
 
-    const apiService = new APIServiceCovid();
+    const apiServiceCovid = new APIServiceCovid();
+    const apiServiceCovidJakarta = new APIServiceCovidJakarta();
 
 
     export default {
@@ -48,14 +52,30 @@
         },
         methods: {
             renderChartData() {
-                apiService.getDataSummaryPerCountry(this.countryCodeIndonesia).then((data) => {
-                    this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
-                    this.chartData.push(['Pulih', data.recovered.value, '#0eff00', data.recovered.value]);
-                    this.chartData.push(['Meninggal', data.deaths.value, '#ff0000', data.deaths.value]);
-                    this.chartData.push(['Terinfeksi', data.confirmed.value, '#ffe100', data.confirmed.value]);
-                    this.lastUpdate = moment(data.lastUpdate).format('DD/MM/YYYY HH:mm:ss ZZ');
+                apiServiceCovid.getDataSummaryPerCountry(this.countryCodeIndonesia).then((data) => {
+                    //TODO if one of the value is 0 use value from api jakarta
+                    if (data.recovered.value == 0 || data.deaths.value == 0 || data.confirmed.value == 0) {
+                        this.renderNationalChartData();
+                    } else {
+                        this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
+                        this.chartData.push(['Pulih', data.recovered.value, '#0eff00', data.recovered.value > 0 ? data.recovered.value : 'Data sedang diperbaharui']);
+                        this.chartData.push(['Meninggal', data.deaths.value, '#ff0000', data.deaths.value > 0 ? data.deaths.value : 'Data sedang diperbaharui']);
+                        this.chartData.push(['Terinfeksi', data.confirmed.value, '#ffe100', data.confirmed.value > 0 ? data.confirmed.value : 'Data sedang diperbaharui']);
+                        this.lastUpdate = moment(data.lastUpdate).format('DD/MM/YYYY HH:mm:ss ZZ');
+                    }
+
                 });
             },
+            renderNationalChartData() {
+                apiServiceCovidJakarta.fetchData().then((data) => {
+                    let nationalData = data.data.nasional;
+                    this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
+                    this.chartData.push(['Pulih', nationalData.sembuh, '#0eff00', nationalData.sembuh > 0 ? nationalData.sembuh : 'Data sedang diperbaharui']);
+                    this.chartData.push(['Meninggal', nationalData.meninggal, '#ff0000', nationalData.meninggal > 0 ? nationalData.meninggal : 'Data sedang diperbaharui']);
+                    this.chartData.push(['Terinfeksi', nationalData.positif, '#ffe100', nationalData.positif > 0 ? nationalData.positif : 'Data sedang diperbaharui']);
+                    this.lastUpdate = moment(data.lastUpdate).format('DD/MM/YYYY HH:mm:ss ZZ');
+                });
+            }
         },
 
         mounted() {
