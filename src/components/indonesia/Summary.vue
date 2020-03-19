@@ -30,6 +30,13 @@
     const apiServiceCovid = new APIServiceCovid();
     const apiServiceCovidJakarta = new APIServiceCovidJakarta();
 
+    const getDate = (dateValue) => moment(dateValue).format('d-MMM-YYYY');
+    const getTime = (dateValue) => moment(dateValue).format('HH:mm:ss');
+    const getTimezone = (dateValue) => moment(dateValue).format("ZZ")
+    const getDatetime = (dateValue) => {
+        const timezone = getTimezone(dateValue) === '+0700'? 'WIB': getTimezone(dateValue)
+        return getDate(dateValue) + ' | ' + getTime(dateValue) + ' ' + timezone
+    }
 
     export default {
         name: "SummaryIndonesia",
@@ -69,7 +76,7 @@
                             this.chartData.push(['Pulih', data.recovered.value, '#0eff00', data.recovered.value > 0 ? data.recovered.value : 'Data sedang diperbaharui']);
                             this.chartData.push(['Meninggal', data.deaths.value, '#ff0000', data.deaths.value > 0 ? data.deaths.value : 'Data sedang diperbaharui']);
                             this.chartData.push(['Terinfeksi', data.confirmed.value, '#ffe100', data.confirmed.value > 0 ? data.confirmed.value : 'Data sedang diperbaharui']);
-                            this.lastUpdate = moment(data.lastUpdate).format('DD/MM/YYYY HH:mm:ss ZZ');
+                            this.lastUpdate = getDatetime(data.lastUpdate)
                         }
                     })
                     .catch(error => {console.error(error)})
@@ -84,7 +91,7 @@
                         this.chartData.push(['Pulih', nationalData.sembuh, '#0eff00', nationalData.sembuh > 0 ? nationalData.sembuh : 'Data sedang diperbaharui']);
                         this.chartData.push(['Meninggal', nationalData.meninggal, '#ff0000', nationalData.meninggal > 0 ? nationalData.meninggal : 'Data sedang diperbaharui']);
                         this.chartData.push(['Terinfeksi', nationalData.positif, '#ffe100', nationalData.positif > 0 ? nationalData.positif : 'Data sedang diperbaharui']);
-                        this.lastUpdate = moment(data.lastUpdate).format('DD/MM/YYYY HH:mm:ss ZZ');
+                        this.lastUpdate = getDatetime(data.lastUpdate)
                     })
                     .catch(error => {console.error(error)})
                     .finally(() => {this.isLoading = false})

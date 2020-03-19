@@ -10,6 +10,7 @@
         </template>
         <div v-else>
             <b-spinner style="width: 3rem; height: 3rem;" class="m-5" label="Busy"></b-spinner>
+            <div>Stay safe, stay healthy everyone !</div>
         </div>
     </div>
 </template>
