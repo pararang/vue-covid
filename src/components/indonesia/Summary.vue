@@ -1,13 +1,16 @@
 <template>
     <div class="card">
         <div class="card-header">Indonesia</div>
-        <div class="card-body">
-            <GChart
-                    type="BarChart"
-                    :data="chartData"
-                    :options="chartOptions"
-            />
-            <p class="small">Pembaharuan terakhir: {{ lastUpdate }}</p>
+        <div class="card-body" style="height: 313px;">
+            <content-loader :is-loading="isLoading" @refresh-data="renderChartData">
+                <template v-slot:content>
+                    <GChart
+                        type="BarChart"
+                        :data="chartData"
+                        :options="chartOptions" />
+                    <p class="small">Pembaharuan terakhir: {{ lastUpdate }}</p>
+                </template>
+            </content-loader>
         </div>
     </div>
 </template>
@@ -21,6 +24,7 @@
         APIServiceCovidJakarta
     } from '../../services/APIServiceCovidJakarta';
     import moment from 'moment';
+    import ContentLoader from '@/components/ContentLoader';
 
 
     const apiServiceCovid = new APIServiceCovid();
@@ -30,7 +34,7 @@
     export default {
         name: "SummaryIndonesia",
         components: {
-            GChart
+            GChart, ContentLoader
         },
         data () {
             return {
@@ -47,34 +51,43 @@
                 chartEvents: {
                     'select': () => {
                     }
-                }
+                },
+                isLoading: true
             }
         },
         methods: {
             renderChartData() {
-                apiServiceCovid.getDataSummaryPerCountry(this.countryCodeIndonesia).then((data) => {
-                    //TODO if one of the value is 0 use value from api jakarta
-                    if (data.recovered.value == 0 || data.deaths.value == 0 || data.confirmed.value == 0) {
-                        this.renderNationalChartData();
-                    } else {
-                        this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
-                        this.chartData.push(['Pulih', data.recovered.value, '#0eff00', data.recovered.value > 0 ? data.recovered.value : 'Data sedang diperbaharui']);
-                        this.chartData.push(['Meninggal', data.deaths.value, '#ff0000', data.deaths.value > 0 ? data.deaths.value : 'Data sedang diperbaharui']);
-                        this.chartData.push(['Terinfeksi', data.confirmed.value, '#ffe100', data.confirmed.value > 0 ? data.confirmed.value : 'Data sedang diperbaharui']);
-                        this.lastUpdate = moment(data.lastUpdate).format('DD/MM/YYYY HH:mm:ss ZZ');
-                    }
-
-                });
+                this.isLoading = true
+                this.chartData = []
+                apiServiceCovid.getDataSummaryPerCountry(this.countryCodeIndonesia)
+                    .then((data) => {
+                        //TODO if one of the value is 0 use value from api jakarta
+                        if (data.recovered.value == 0 || data.deaths.value == 0 || data.confirmed.value == 0) {
+                            this.renderNationalChartData();
+                        } else {
+                            this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
+                            this.chartData.push(['Pulih', data.recovered.value, '#0eff00', data.recovered.value > 0 ? data.recovered.value : 'Data sedang diperbaharui']);
+                            this.chartData.push(['Meninggal', data.deaths.value, '#ff0000', data.deaths.value > 0 ? data.deaths.value : 'Data sedang diperbaharui']);
+                            this.chartData.push(['Terinfeksi', data.confirmed.value, '#ffe100', data.confirmed.value > 0 ? data.confirmed.value : 'Data sedang diperbaharui']);
+                            this.lastUpdate = moment(data.lastUpdate).format('DD/MM/YYYY HH:mm:ss ZZ');
+                        }
+                    })
+                    .catch(error => {console.error(error)})
+                    .finally(() => {this.isLoading = false})
             },
             renderNationalChartData() {
-                apiServiceCovidJakarta.fetchData().then((data) => {
-                    let nationalData = data.data.nasional;
-                    this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
-                    this.chartData.push(['Pulih', nationalData.sembuh, '#0eff00', nationalData.sembuh > 0 ? nationalData.sembuh : 'Data sedang diperbaharui']);
-                    this.chartData.push(['Meninggal', nationalData.meninggal, '#ff0000', nationalData.meninggal > 0 ? nationalData.meninggal : 'Data sedang diperbaharui']);
-                    this.chartData.push(['Terinfeksi', nationalData.positif, '#ffe100', nationalData.positif > 0 ? nationalData.positif : 'Data sedang diperbaharui']);
-                    this.lastUpdate = moment(data.lastUpdate).format('DD/MM/YYYY HH:mm:ss ZZ');
-                });
+                this.isLoading = true
+                apiServiceCovidJakarta.fetchData()
+                    .then((data) => {
+                        let nationalData = data.data.nasional;
+                        this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
+                        this.chartData.push(['Pulih', nationalData.sembuh, '#0eff00', nationalData.sembuh > 0 ? nationalData.sembuh : 'Data sedang diperbaharui']);
+                        this.chartData.push(['Meninggal', nationalData.meninggal, '#ff0000', nationalData.meninggal > 0 ? nationalData.meninggal : 'Data sedang diperbaharui']);
+                        this.chartData.push(['Terinfeksi', nationalData.positif, '#ffe100', nationalData.positif > 0 ? nationalData.positif : 'Data sedang diperbaharui']);
+                        this.lastUpdate = moment(data.lastUpdate).format('DD/MM/YYYY HH:mm:ss ZZ');
+                    })
+                    .catch(error => {console.error(error)})
+                    .finally(() => {this.isLoading = false})
             }
         },
 
@@ -83,7 +96,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>
