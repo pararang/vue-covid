@@ -4,7 +4,7 @@ import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm'
 import Trend from "vuetrend"
 import VueApexCharts from "vue-apexcharts"
 import VueMeta from 'vue-meta';
-import VueGtag from "vue-gtag";
+import VueAnalytics from "vue-analytics";
 
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -17,8 +17,9 @@ Vue.use(require('vue-moment'));
 Vue.use(Trend);
 Vue.use(VueApexCharts);
 Vue.use(VueMeta);
-Vue.use(VueGtag, {
-  config: { id: "GTM-M46C6DL" }
+Vue.use(VueAnalytics, {
+  id: 'UA-161491409-1',
+  checkDuplicatedScript: true
 });
 
 new Vue({
