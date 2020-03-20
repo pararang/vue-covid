@@ -30,7 +30,7 @@
     const apiServiceCovid = new APIServiceCovid();
     const apiServiceCovidJakarta = new APIServiceCovidJakarta();
 
-    const getDate = (dateValue) => moment(dateValue).format('d-MMM-YYYY');
+    const getDate = (dateValue) => moment(dateValue).format('D-MMM-YYYY');
     const getTime = (dateValue) => moment(dateValue).format('HH:mm:ss');
     const getTimezone = (dateValue) => moment(dateValue).format("ZZ")
     const getDatetime = (dateValue) => {
