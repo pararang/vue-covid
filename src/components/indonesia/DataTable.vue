@@ -71,7 +71,7 @@
                     // let headings = lines[0].split(','); // Splice up the first row to get the headings
 
                     for (let j = 1; j < lines.length; j++) {
-                        let values = lines[j].split(','); // Split up the comma seperated values
+                        // let values = lines[j].split(','); // Split up the comma seperated values
                         // console.log(values);
 
                     }
