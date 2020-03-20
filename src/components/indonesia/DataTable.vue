@@ -15,11 +15,13 @@
     import numeral from 'numeral';
     import {
         Grid
-    } from '@progress/kendo-vue-grid'
+    } from '@progress/kendo-vue-grid';
+    import { APIServiceCovidIndonesia } from '../../services/APIServiceCovidIndonesia';
     // import moment from "moment";
     import '@progress/kendo-theme-default/dist/all.css'
 
     const apiKawalKorona = new APIServiceKawalKorona();
+    const apiCovidIndonesia = new APIServiceCovidIndonesia();
 
     export default {
         name: "DataTableIndonesia",
@@ -50,7 +52,7 @@
                         title: 'Pembaharuan'
                     }
                 ],
-                countries: []
+                provinces: []
             };
         },
         methods: {
@@ -78,9 +80,15 @@
             formatNumber(x) {
                 return numeral(x).format('0,0');
             },
+            generateDataTable() {
+                apiCovidIndonesia.fetchDataPerProvince().then((data) => {
+                    this.provinces = data;
+                });
+            }
         },
         mounted() {
-            this.getDataConfirmedDetail();
+            // this.getDataConfirmedDetail();
+            this.generateDataTable();
         },
     }
 </script>

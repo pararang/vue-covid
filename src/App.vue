@@ -78,10 +78,4 @@
         font-size: large;
         font-weight: bold;
     }
-
-    .card-body {
-        /*display: flex;*/
-        /*justify-content: center;*/
-        /*align-items: center;*/
-    }
 </style>
