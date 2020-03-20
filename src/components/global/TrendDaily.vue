@@ -55,6 +55,7 @@
         methods: {
             renderDataTrendGlobal() {
                 this.isLoading = true
+                this.chartData = [],
                 apiService.getDataDailyGlobal()
                     .then((data) => {
                         this.chartData.push(['Tanggal', 'Global', 'China (Mainland)', 'Lokasi lainnya']);
