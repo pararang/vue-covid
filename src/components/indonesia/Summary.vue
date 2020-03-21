@@ -74,6 +74,9 @@
             }
         },
         methods: {
+            countryselected(countrySelected) {
+                this.countryCodeSelected = countrySelected
+            },
             renderChartData() {
                 this.isLoading = true
                 this.chartData = []
