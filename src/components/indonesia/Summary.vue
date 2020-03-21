@@ -76,6 +76,7 @@
         methods: {
             countryselected(countrySelected) {
                 this.countryCodeSelected = countrySelected
+                this.renderChartData()
             },
             renderChartData() {
                 this.isLoading = true
