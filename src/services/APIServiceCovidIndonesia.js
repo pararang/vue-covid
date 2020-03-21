@@ -15,14 +15,15 @@ export class APIServiceCovidIndonesia {
     }
 
     fetchDataPerProvince() {
-        let url = `${API_URL}/provinsi.csv`;
+        let url = `${API_URL}/provinsi`;
         let data = this.httpGet(url);
         return data;
     }
 
     fetchDataPerCase() {
-        let url = `${API_URL}/kasus.csv`;
+        let url = `${API_URL}/kasus`;
         let data = this.httpGet(url);
         return data;
     }
+    
 }
