@@ -78,6 +78,28 @@
                 this.countryCodeSelected = countrySelected
                 this.renderChartData()
             },
+            fetchCountryData() {
+                this.isLoading = true
+                this.countryCodeOptions = []
+                apiServiceCovid.getDataCountryCode()
+                    .then((data) => {
+                        let countries = []
+                        // todo better map data to dropdown
+                        for (let country in data.countries) {
+                            if(Object.prototype.hasOwnProperty.call(data.countries, country)) {
+                                countries.push({
+                                    value: data.countries[country],
+                                    text: country
+                                })
+                            }
+                        }
+                        this.countryCodeOptions = countries
+                        this.countryCodeSelected = this.countryCodeIndonesia
+                    })
+                    .then(() => {this.renderChartData()})
+                    .catch(error => {console.error(error)})
+                    .finally(() => {this.isLoading = false})
+            },
             renderChartData() {
                 this.isLoading = true
                 this.chartData = []
@@ -114,7 +136,7 @@
         },
 
         mounted() {
-            this.renderChartData();
+            this.fetchCountryData();
         },
     }
 </script>
