@@ -80,7 +80,7 @@
             renderChartData() {
                 this.isLoading = true
                 this.chartData = []
-                apiServiceCovid.getDataSummaryPerCountry(this.countryCodeIndonesia)
+                apiServiceCovid.getDataSummaryPerCountry(this.countryCodeSelected)
                     .then((data) => {
                         //TODO if one of the value is 0 use value from api jakarta
                         if (data.recovered.value == 0 || data.deaths.value == 0 || data.confirmed.value == 0) {
