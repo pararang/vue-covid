@@ -65,6 +65,14 @@
                 isLoading: true
             }
         },
+        computed: {
+            countryName () {
+                if (this.countryCodeSelected == null)
+                    return ""
+                let datum = this.countryCodeOptions.find(item => item.value === this.countryCodeSelected);
+                return datum.text;
+            }
+        },
         methods: {
             renderChartData() {
                 this.isLoading = true
