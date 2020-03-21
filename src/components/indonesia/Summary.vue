@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">Indonesia</div>
+        <div class="card-header">{{ countryName }}</div>
         <div class="card-body" style="height: 313px;">
             <content-loader :is-loading="isLoading" @refresh-data="renderChartData">
                 <template v-slot:content>
@@ -8,6 +8,7 @@
                         type="BarChart"
                         :data="chartData"
                         :options="chartOptions" />
+                    <b-form-select v-model="countryCodeSelected" :options="countryCodeOptions" @change="countryselected"></b-form-select>
                     <p class="small">Pembaharuan terakhir: {{ lastUpdate }}</p>
                 </template>
             </content-loader>
@@ -46,6 +47,8 @@
         data () {
             return {
                 countryCodeIndonesia: 'ID',
+                countryCodeSelected: null,
+                countryCodeOptions: [],
                 lastUpdate: '',
                 chartData: [],
                 chartOptions: {
