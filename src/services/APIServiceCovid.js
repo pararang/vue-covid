@@ -31,4 +31,10 @@ export class APIServiceCovid {
         let data = axios.get(url).then(response => response.data);
         return data;
     }
+
+    getDataCountryCode() {
+        const url = `${API_URL}/countries/`;
+        let data = axios.get(url).then(response => response.data);
+        return data;
+    }
 }
