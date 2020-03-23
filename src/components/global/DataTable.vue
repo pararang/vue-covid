@@ -3,6 +3,9 @@
         <div class="card-header">Global</div>
         <div class="card-body">
             <Grid :style="{height: '350px'}" :data-items="sortedData" :columns="columns" :sortable="true" :sort="sort"
+                :selected-field="selectedField"
+                @selectionchange="onSelectionChange"
+                @rowclick="onRowClick"
                 @sortchange="sortChangeHandler">
             </Grid>
         </div>
@@ -24,7 +27,9 @@
     import moment from 'moment'
 
     const apiService = new APIServiceCovid();
-
+    
+    import Vue from 'vue'
+    
     export default {
         name: "DataTableGlobal",
         components: {
@@ -63,7 +68,8 @@
                     },
 
                 ],
-                countries: []
+                countries: [],
+                selectedField: 'selected',
             };
         },
         methods: {
@@ -121,6 +127,12 @@
             sortChangeHandler: function (e) {
                 this.sort = e.sort;
             },
+            onSelectionChange: function (event) {
+                Vue.set(event.dataItem, this.selectedField, !event.dataItem[this.selectedField])
+            },
+            onRowClick: function (event) {
+                Vue.set(event.dataItem, this.selectedField, !event.dataItem[this.selectedField])
+            }
         },
         computed: {
             sortedData: {
