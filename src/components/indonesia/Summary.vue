@@ -1,9 +1,10 @@
 <template>
     <div class="card">
-        <div class="card-header">Indonesia</div>
+        <div class="card-header">{{ selected.label }}</div>
         <div class="card-body" style="height: 313px;">
             <content-loader :is-loading="isLoading" @refresh-data="renderChartData">
                 <template v-slot:content>
+                    <br><vSelect label="label" :value="selected" :options="options" @input="getOption" placeholder="Search ..." class="col-md-4 col-sm-10" /><br>
                     <GChart
                         type="BarChart"
                         :data="chartData"
@@ -25,6 +26,10 @@
     } from '../../services/APIServiceCovidJakarta';
     import moment from 'moment';
     import ContentLoader from '@/components/ContentLoader';
+    
+    import vSelect from 'vue-select';
+    import "vue-select/dist/vue-select.css";
+    import "vue-select/src/scss/vue-select.scss";
 
 
     const apiServiceCovid = new APIServiceCovid();
@@ -41,7 +46,7 @@
     export default {
         name: "SummaryIndonesia",
         components: {
-            GChart, ContentLoader
+            GChart, ContentLoader, vSelect
         },
         data () {
             return {
@@ -59,14 +64,21 @@
                     'select': () => {
                     }
                 },
-                isLoading: true
+                isLoading: true,
+                selected: { code: 'ID', label: 'Indonesia' },
+                options: [
+                    { code: 'ID', label: 'Indonesia' },
+                    { code: 'CN', label: 'China' },
+                    { code: 'MY', label: 'Malaysia' },
+                    { code: 'SG', label: 'Singapura' },
+                ]
             }
         },
         methods: {
-            renderChartData() {
+            renderChartData(country) {
                 this.isLoading = true
                 this.chartData = []
-                apiServiceCovid.getDataSummaryPerCountry(this.countryCodeIndonesia)
+                apiServiceCovid.getDataSummaryPerCountry(country.code)
                     .then((data) => {
                         //TODO if one of the value is 0 use value from api jakarta
                         if (data.recovered.value == 0 || data.deaths.value == 0 || data.confirmed.value == 0) {
@@ -95,11 +107,15 @@
                     })
                     .catch(error => {console.error(error)})
                     .finally(() => {this.isLoading = false})
+            },
+            getOption: function (country) {
+                this.selected = country
+                this.renderChartData(this.selected);
             }
         },
 
         mounted() {
-            this.renderChartData();
+            this.renderChartData(this.selected);
         },
     }
 </script>
