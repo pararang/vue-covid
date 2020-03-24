@@ -19,7 +19,7 @@ Vue.use(VueApexCharts);
 Vue.use(VueMeta);
 Vue.use(VueAnalytics, {
   id: 'UA-161491409-1',
-  checkDuplicatedScript: true
+  checkDuplicatedScript: false
 });
 
 new Vue({

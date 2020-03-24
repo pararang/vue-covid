@@ -21,15 +21,13 @@
     import {
         APIServiceCovid
     } from '../../services/APIServiceCovid';
-    import {
-        APIServiceCovidJakarta
-    } from '../../services/APIServiceCovidJakarta';
+    import { APIServiceCovidIndonesia } from '../../services/APIServiceCovidIndonesia';
     import moment from 'moment';
     import ContentLoader from '@/components/ContentLoader';
 
 
     const apiServiceCovid = new APIServiceCovid();
-    const apiServiceCovidJakarta = new APIServiceCovidJakarta();
+    const apiServiceCovidIndonesia = new APIServiceCovidIndonesia();
 
     const getDate = (dateValue) => moment(dateValue).format('D-MMM-YYYY');
     const getTime = (dateValue) => moment(dateValue).format('HH:mm:ss');
@@ -85,7 +83,6 @@
                     .then((data) => {
                         let countries = []
                         data.countries.forEach(function(val) {
-                            console.log(val.name)
                             countries.push({
                                 value: val.iso3,
                                 text: val.name
@@ -103,8 +100,8 @@
                 this.chartData = []
                 apiServiceCovid.getDataSummaryPerCountry(this.countryCodeSelected)
                     .then((data) => {
-                        //TODO if one of the value is 0 use value from api jakarta
-                        if (data.recovered.value == 0 || data.deaths.value == 0 || data.confirmed.value == 0) {
+                        //if API Covid is corrupted and selected country is Indonesia, fetch data from API Indonesia
+                        if ((data.recovered.value == 0 || data.deaths.value == 0 || data.confirmed.value == 0) && this.countryCodeSelected == this.countryCodeIndonesia) {
                             this.renderNationalChartData();
                         } else {
                             this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
@@ -119,13 +116,12 @@
             },
             renderNationalChartData() {
                 this.isLoading = true
-                apiServiceCovidJakarta.fetchData()
+                apiServiceCovidIndonesia.index()
                     .then((data) => {
-                        let nationalData = data.data.nasional;
                         this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
-                        this.chartData.push(['Pulih', nationalData.sembuh, '#0eff00', nationalData.sembuh > 0 ? nationalData.sembuh : 'Data sedang diperbaharui']);
-                        this.chartData.push(['Meninggal', nationalData.meninggal, '#ff0000', nationalData.meninggal > 0 ? nationalData.meninggal : 'Data sedang diperbaharui']);
-                        this.chartData.push(['Terinfeksi', nationalData.positif, '#ffe100', nationalData.positif > 0 ? nationalData.positif : 'Data sedang diperbaharui']);
+                        this.chartData.push(['Pulih', data.sembuh, '#0eff00', data.sembuh > 0 ? data.sembuh : 'Data sedang diperbaharui']);
+                        this.chartData.push(['Meninggal', data.meninggal, '#ff0000', data.meninggal > 0 ? data.meninggal : 'Data sedang diperbaharui']);
+                        this.chartData.push(['Terinfeksi', data.jumlahKasus, '#ffe100', data.positif > 0 ? data.positif : 'Data sedang diperbaharui']);
                         this.lastUpdate = getDatetime(data.lastUpdate)
                     })
                     .catch(error => {console.error(error)})

@@ -5,13 +5,24 @@ const API_URL = 'https://indonesia-covid19.mathdro.id/api';
 export class APIServiceCovidIndonesia {
 
     constructor() {
-
+        this.config = {
+            mode: 'no-cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+            }
+        };
     }
 
     httpGet = async function (url) {
-        const response = await axios.get(url);
-        console.log(response);
-        return response;
+        return axios.get(url, this.config).then(response => response.data);
+    }
+
+    index() {
+        let url = `${API_URL}`;
+        let data = this.httpGet(url);
+        console.log(data);
+        return data;
     }
 
     fetchDataPerProvince() {
@@ -25,5 +36,5 @@ export class APIServiceCovidIndonesia {
         let data = this.httpGet(url);
         return data;
     }
-    
+
 }
