@@ -1,27 +1,27 @@
 import axios from 'axios';
 
-const API_URL = 'https://indonesia-covid19.mathdro.id/api';
+const API_URL = 'https://indonesia-covid-19.mathdro.id/api';
 
 export class APIServiceCovidIndonesia {
 
     constructor() {
         this.config = {
-            mode: 'no-cors',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json',
-            }
+            // mode: 'no-cors',
+            // headers: {
+            //     'Access-Control-Allow-Origin': '*',
+            //     'Content-Type': 'application/json',
+            // }
         };
     }
 
     httpGet = async function (url) {
-        return axios.get(url, this.config).then(response => response.data);
+        const response = await axios.get(url);
+        return response;
     }
 
     index() {
         let url = `${API_URL}`;
         let data = this.httpGet(url);
-        console.log(data);
         return data;
     }
 

@@ -145,21 +145,22 @@
                 this.isLoading = true
                 apiServiceCovidIndonesia.index()
                     .then((data) => {
+                        let aggregate = data.data;
                         this.chartData.push(['Element', 'Jumlah Pasien', {
                             role: 'style'
                         }, {
                             role: 'annotation'
                         }]);
-                        this.chartData.push(['Pulih', data.sembuh, '#0eff00', data.sembuh > 0 ? data.sembuh : this
+                        this.chartData.push(['Pulih', aggregate.sembuh, '#0eff00', aggregate.sembuh > 0 ? aggregate.sembuh : this
                             .annotationOnNoData
                         ]);
-                        this.chartData.push(['Meninggal', data.meninggal, '#ff0000', data.meninggal > 0 ? data
+                        this.chartData.push(['Meninggal', aggregate.meninggal, '#ff0000', aggregate.meninggal > 0 ? aggregate
                             .meninggal : this.annotationOnNoData
                         ]);
-                        this.chartData.push(['Terinfeksi', data.jumlahKasus, '#ffe100', data.positif > 0 ? data
-                            .positif : this.annotationOnNoData
+                        this.chartData.push(['Terinfeksi', aggregate.jumlahKasus, '#ffe100', aggregate.jumlahKasus > 0 ? aggregate
+                            .jumlahKasus : this.annotationOnNoData
                         ]);
-                        this.lastUpdate = getDatetime(data.lastUpdate)
+                        this.lastUpdate = getDatetime(aggregate.lastUpdate)
                     })
                     .catch(error => {
                         console.error(error)
