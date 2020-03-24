@@ -45,6 +45,7 @@
         data () {
             return {
                 countryCodeIndonesia: 'IDN',
+                annotationOnNoData: 'Data tidak ditemukan atau sedang diperbaharui',
                 countryCodeSelected: null,
                 countryCodeOptions: [],
                 lastUpdate: '',
@@ -105,9 +106,9 @@
                             this.renderNationalChartData();
                         } else {
                             this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
-                            this.chartData.push(['Pulih', data.recovered.value, '#0eff00', data.recovered.value > 0 ? data.recovered.value : 'Data sedang diperbaharui']);
-                            this.chartData.push(['Meninggal', data.deaths.value, '#ff0000', data.deaths.value > 0 ? data.deaths.value : 'Data sedang diperbaharui']);
-                            this.chartData.push(['Terinfeksi', data.confirmed.value, '#ffe100', data.confirmed.value > 0 ? data.confirmed.value : 'Data sedang diperbaharui']);
+                            this.chartData.push(['Pulih', data.recovered.value, '#0eff00', data.recovered.value > 0 ? data.recovered.value : this.annotationOnNoData]);
+                            this.chartData.push(['Meninggal', data.deaths.value, '#ff0000', data.deaths.value > 0 ? data.deaths.value : this.annotationOnNoData]);
+                            this.chartData.push(['Terinfeksi', data.confirmed.value, '#ffe100', data.confirmed.value > 0 ? data.confirmed.value : this.annotationOnNoData]);
                             this.lastUpdate = getDatetime(data.lastUpdate)
                         }
                     })
@@ -119,9 +120,9 @@
                 apiServiceCovidIndonesia.index()
                     .then((data) => {
                         this.chartData.push(['Element', 'Jumlah Pasien', { role: 'style' }, { role: 'annotation' }]);
-                        this.chartData.push(['Pulih', data.sembuh, '#0eff00', data.sembuh > 0 ? data.sembuh : 'Data sedang diperbaharui']);
-                        this.chartData.push(['Meninggal', data.meninggal, '#ff0000', data.meninggal > 0 ? data.meninggal : 'Data sedang diperbaharui']);
-                        this.chartData.push(['Terinfeksi', data.jumlahKasus, '#ffe100', data.positif > 0 ? data.positif : 'Data sedang diperbaharui']);
+                        this.chartData.push(['Pulih', data.sembuh, '#0eff00', data.sembuh > 0 ? data.sembuh : this.annotationOnNoData]);
+                        this.chartData.push(['Meninggal', data.meninggal, '#ff0000', data.meninggal > 0 ? data.meninggal : this.annotationOnNoData]);
+                        this.chartData.push(['Terinfeksi', data.jumlahKasus, '#ffe100', data.positif > 0 ? data.positif : this.annotationOnNoData]);
                         this.lastUpdate = getDatetime(data.lastUpdate)
                     })
                     .catch(error => {console.error(error)})
