@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">Indonesia</div>
+        <div class="card-header">{{ countryName }}</div>
         <div class="card-body" style="height: 313px;">
             <content-loader :is-loading="isLoading" @refresh-data="renderChartData">
                 <template v-slot:content>
@@ -8,6 +8,7 @@
                         type="BarChart"
                         :data="chartData"
                         :options="chartOptions" />
+                    <b-form-select v-model="countryCodeSelected" :options="countryCodeOptions" @change="countryselected"></b-form-select>
                     <p class="small">Pembaharuan terakhir: {{ lastUpdate }}</p>
                 </template>
             </content-loader>
@@ -45,7 +46,9 @@
         },
         data () {
             return {
-                countryCodeIndonesia: 'ID',
+                countryCodeIndonesia: 'IDN',
+                countryCodeSelected: null,
+                countryCodeOptions: [],
                 lastUpdate: '',
                 chartData: [],
                 chartOptions: {
@@ -62,11 +65,43 @@
                 isLoading: true
             }
         },
+        computed: {
+            countryName () {
+                if (this.countryCodeSelected == null)
+                    return ""
+                let datum = this.countryCodeOptions.find(item => item.value === this.countryCodeSelected);
+                return datum.text;
+            }
+        },
         methods: {
+            countryselected(countrySelected) {
+                this.countryCodeSelected = countrySelected
+                this.renderChartData()
+            },
+            fetchCountryData() {
+                this.isLoading = true
+                this.countryCodeOptions = []
+                apiServiceCovid.getDataCountryCode()
+                    .then((data) => {
+                        let countries = []
+                        data.countries.forEach(function(val) {
+                            console.log(val.name)
+                            countries.push({
+                                value: val.iso3,
+                                text: val.name
+                            })
+                        })
+                        this.countryCodeOptions = countries
+                        this.countryCodeSelected = this.countryCodeIndonesia
+                    })
+                    .then(() => {this.renderChartData()})
+                    .catch(error => {console.error(error)})
+                    .finally(() => {this.isLoading = false})
+            },
             renderChartData() {
                 this.isLoading = true
                 this.chartData = []
-                apiServiceCovid.getDataSummaryPerCountry(this.countryCodeIndonesia)
+                apiServiceCovid.getDataSummaryPerCountry(this.countryCodeSelected)
                     .then((data) => {
                         //TODO if one of the value is 0 use value from api jakarta
                         if (data.recovered.value == 0 || data.deaths.value == 0 || data.confirmed.value == 0) {
@@ -99,7 +134,7 @@
         },
 
         mounted() {
-            this.renderChartData();
+            this.fetchCountryData();
         },
     }
 </script>

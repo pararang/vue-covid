@@ -5,7 +5,7 @@ const API_URL = 'https://covid19.mathdro.id/api';
 export class APIServiceCovid {
 
     constructor() {
-        
+
     }
 
     getDataGlobal() {
@@ -27,7 +27,13 @@ export class APIServiceCovid {
     }
 
     getDataSummaryPerCountry(countryCode) {
-        const url = `${API_URL}/countries/`+countryCode;
+        const url = `${API_URL}/countries/` + countryCode;
+        let data = axios.get(url).then(response => response.data);
+        return data;
+    }
+
+    getDataCountryCode() {
+        const url = `${API_URL}/countries/`;
         let data = axios.get(url).then(response => response.data);
         return data;
     }
