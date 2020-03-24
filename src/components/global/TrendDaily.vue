@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">Tren Jumlah Terinfeksi Global</div>
+        <div class="card-header">Global</div>
         <div class="card-body" style="height: 428px;">
             <content-loader :is-loading="isLoading" @refresh-data="renderDataTrendGlobal">
                 <template v-slot:content>

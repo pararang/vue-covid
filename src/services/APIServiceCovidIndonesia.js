@@ -37,4 +37,10 @@ export class APIServiceCovidIndonesia {
         return data;
     }
 
+    fetchDataDaily() {
+        let url = `${API_URL}/harian`;
+        let data = this.httpGet(url);
+        return data;
+    }
+
 }

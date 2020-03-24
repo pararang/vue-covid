@@ -1,11 +1,10 @@
 <template>
-    <div class="card">
-        <div class="card-header">Indonesia</div>
-        <div class="card-body">
-            <Grid :style="{height: '350px'}" :data-items="sortedData" :columns="columns" :sortable="true" :sort="sort"
-                  @sortchange="sortChangeHandler">
-            </Grid>
-        </div>
+    <div>
+        <br>
+        <h8 class="title"><strong>Data Per Provinsi</strong></h8>
+        <Grid :style="{height: '350px'}" :data-items="sortedData" :columns="columns" :sortable="true" :sort="sort"
+              @sortchange="sortChangeHandler">
+        </Grid>
     </div>
 </template>
 
