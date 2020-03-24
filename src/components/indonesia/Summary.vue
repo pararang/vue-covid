@@ -46,7 +46,7 @@
         },
         data () {
             return {
-                countryCodeIndonesia: 'ID',
+                countryCodeIndonesia: 'IDN',
                 countryCodeSelected: null,
                 countryCodeOptions: [],
                 lastUpdate: '',
