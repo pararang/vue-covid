@@ -4,9 +4,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <SummaryGlobal/>
         <SummaryIndonesia/>
-       <TrendGlobalDaily/>
-        <!-- <DataTableIndonesia/> -->
-        <DataTableGlobal/>
+        <DataTableIndonesia/>
+        <TrendGlobalDaily/>
         <Footer/>
     </div>
 </template>
@@ -14,9 +13,8 @@
 <script>
     import SummaryGlobal from './components/global/Summary'
     import SummaryIndonesia from "./components/indonesia/Summary";
-    // import DataTableIndonesia from "./components/indonesia/DataTable";
+    import DataTableIndonesia from "./components/indonesia/DataTable";
     import TrendGlobalDaily from "./components/global/TrendDaily";
-    import DataTableGlobal from './components/global/DataTable'
     import Footer from "./components/footer/Footer";
 
     const metaCard = 'https://covid19.mathdro.id/api/countries/Indonesia/og';
@@ -26,9 +24,8 @@
         components: {
             SummaryGlobal,
             SummaryIndonesia,
-            // DataTableIndonesia,
+            DataTableIndonesia,
             TrendGlobalDaily,
-            DataTableGlobal,
             Footer
         },
         data() {

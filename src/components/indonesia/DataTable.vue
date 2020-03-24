@@ -2,25 +2,22 @@
     <div class="card">
         <div class="card-header">Indonesia</div>
         <div class="card-body">
-            <Grid :style="{height: '350px'}" :data-items="dataSet" :columns="columns">
+            <Grid :style="{height: '350px'}" :data-items="sortedData" :columns="columns" :sortable="true" :sort="sort"
+                  @sortchange="sortChangeHandler">
             </Grid>
         </div>
     </div>
 </template>
 
 <script>
-    import {
-        APIServiceKawalKorona
-    } from '../../services/APIServiceKawalKorona';
     import numeral from 'numeral';
     import {
         Grid
     } from '@progress/kendo-vue-grid';
     import { APIServiceCovidIndonesia } from '../../services/APIServiceCovidIndonesia';
-    // import moment from "moment";
-    import '@progress/kendo-theme-default/dist/all.css'
+    import '@progress/kendo-theme-default/dist/all.css';
+    import {orderBy} from "@progress/kendo-data-query";
 
-    const apiKawalKorona = new APIServiceKawalKorona();
     const apiCovidIndonesia = new APIServiceCovidIndonesia();
 
     export default {
@@ -32,62 +29,52 @@
             return {
                 dataSet: [],
                 columns: [{
-                        field: 'location',
-                        title: 'Lokasi'
+                        field: 'provinsi',
+                        title: 'Provinsi'
                     },
                     {
-                        field: 'confirmed',
+                        field: 'kasusPosi',
                         title: 'Terinfeksi'
                     },
                     {
-                        field: 'deaths',
+                        field: 'kasusMeni',
                         title: 'Meninggal'
                     },
                     {
-                        field: 'recovered',
+                        field: 'kasusSemb',
                         title: 'Pulih'
-                    },
-                    {
-                        field: 'lastUpdate',
-                        title: 'Pembaharuan'
                     }
                 ],
-                provinces: []
+                sort: [{
+                    field: 'provinsi',
+                    dir: 'asc'
+                }, {
+                    field: 'kasusPosi',
+                    dir: 'desc'
+                }]
             };
         },
         methods: {
-            getDataConfirmedDetail() {
-                apiKawalKorona.getAllData().then((data) => {
-                    // console.log(data);
-                    this.dataSet = data;
-                    var lines = data.split(/\r\n|\n/);
-
-                    //Set up the data arrays
-                    // let time = [];
-                    // let data1 = [];
-                    // let data2 = [];
-                    // let data3 = [];
-
-                    // let headings = lines[0].split(','); // Splice up the first row to get the headings
-
-                    for (let j = 1; j < lines.length; j++) {
-                        // let values = lines[j].split(','); // Split up the comma seperated values
-                        // console.log(values);
-
-                    }
-                });
-            },
             formatNumber(x) {
                 return numeral(x).format('0,0');
             },
+            sortChangeHandler: function (e) {
+                this.sort = e.sort;
+            },
             generateDataTable() {
                 apiCovidIndonesia.fetchDataPerProvince().then((data) => {
-                    this.provinces = data;
+                    this.dataSet = data.data.data;
                 });
             }
         },
+        computed: {
+            sortedData: {
+                get: function () {
+                    return orderBy(this.dataSet, this.sort);
+                }
+            }
+        },
         mounted() {
-            // this.getDataConfirmedDetail();
             this.generateDataTable();
         },
     }
