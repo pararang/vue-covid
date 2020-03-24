@@ -84,15 +84,13 @@
                 apiServiceCovid.getDataCountryCode()
                     .then((data) => {
                         let countries = []
-                        // todo better map data to dropdown
-                        for (let country in data.countries) {
-                            if(Object.prototype.hasOwnProperty.call(data.countries, country)) {
-                                countries.push({
-                                    value: data.countries[country],
-                                    text: country
-                                })
-                            }
-                        }
+                        data.countries.forEach(function(val) {
+                            console.log(val.name)
+                            countries.push({
+                                value: val.iso3,
+                                text: val.name
+                            })
+                        })
                         this.countryCodeOptions = countries
                         this.countryCodeSelected = this.countryCodeIndonesia
                     })
