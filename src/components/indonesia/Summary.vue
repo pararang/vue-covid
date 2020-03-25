@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="align-item-center">
-            <b-form-select v-model="countryCodeSelected" :options="countryCodeOptions" @change="countryselected" class="btn btn-light text-center">
+            <b-form-select v-model="countryCodeSelected" :options="countryCodeOptions" @change="countryselected" class="btn btn-light text-center" style="text-align-last: center; height: 50px; font-weight: bold; font-size: large; background-color: rgba(0, 0, 0, 0.03);">
             </b-form-select>
         </div>
         <div class="card-body" style="height: 313px;">
