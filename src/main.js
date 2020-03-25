@@ -6,6 +6,8 @@ import VueApexCharts from "vue-apexcharts"
 import VueMeta from 'vue-meta';
 import VueAnalytics from "vue-analytics";
 
+import store from './store'
+import i18n from './i18n/i18n'
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -22,6 +24,8 @@ Vue.use(VueAnalytics, {
   checkDuplicatedScript: false
 });
 
-new Vue({
+window.app = new Vue({
+  store,
+  i18n,
   render: h => h(App),
 }).$mount('#app')

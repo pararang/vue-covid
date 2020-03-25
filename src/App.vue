@@ -3,13 +3,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <SummaryGlobal/>
+        <select @change="$store.commit('switchLang', $event.target.value)">
+           <option value="id">Indonesia</option>
+           <option value="en">Inggris</option>
+        </select>
         <div class="card">
             <div class="card-header">Indonesia</div>
             <div class="card-body">
                 <b-tabs content-class="mt-3">
-                    <b-tab title="Total Terkini" active><SummaryIndonesia/></b-tab>
-                    <b-tab title="Tren Perhari"><TrendIndonesiaDaily/></b-tab>
-                    <b-tab title="Work in progress!" disabled><p>Work in proggress!</p></b-tab>
+                    <b-tab :title="$t('tab-summary.current-total')" active><SummaryIndonesia/></b-tab>
+                    <b-tab :title="$t('tab-summary.daily-trends')"><TrendIndonesiaDaily/></b-tab>
+                    <b-tab :title="$t('tab-summary.work-in-progress')" disabled><p>Work in proggress!</p></b-tab>
                 </b-tabs>
                 <DataTableIndonesia/>
             </div>
@@ -26,6 +30,8 @@
     import DataTableIndonesia from "./components/indonesia/DataTable";
     import TrendGlobalDaily from "./components/global/TrendDaily";
     import Footer from "./components/footer/Footer";
+    
+    import { mapState } from 'vuex';
 
     const metaCard = 'https://covid19.mathdro.id/api/countries/Indonesia/og';
 
@@ -64,6 +70,9 @@
                 {property: 'og:image', content:  metaCard},
                 {property: 'og:description', content: 'Visualisasi dan rangkuman data penyebaran korona (Covid 19) di Indonesia dan dunia mengunakan VueJS'}
             ]
+        },
+        computed: {
+            ...mapState(['lang'])
         }
     }
 </script>
