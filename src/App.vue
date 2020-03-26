@@ -7,7 +7,7 @@
             <div class="card-header">Indonesia</div>
             <div class="card-body">
                 <b-tabs content-class="mt-3">
-                    <b-tab title="Total Terkini" active><SummaryIndonesia/></b-tab>
+                    <b-tab title="Total Terkini" active><SummaryCountry/></b-tab>
                     <b-tab title="Tren Perhari"><TrendIndonesiaDaily/></b-tab>
                     <b-tab title="Work in progress!" disabled><p>Work in proggress!</p></b-tab>
                 </b-tabs>
@@ -22,7 +22,7 @@
 <script>
     import SummaryGlobal from './components/global/Summary';
     import TrendIndonesiaDaily from './components/indonesia/Trend';
-    import SummaryIndonesia from "./components/indonesia/Summary";
+    import SummaryCountry from "./components/indonesia/Summary";
     import DataTableIndonesia from "./components/indonesia/DataTable";
     import TrendGlobalDaily from "./components/global/TrendDaily";
     import Footer from "./components/footer/Footer";
@@ -34,7 +34,7 @@
         components: {
             SummaryGlobal,
             TrendIndonesiaDaily,
-            SummaryIndonesia,
+            SummaryCountry,
             DataTableIndonesia,
             TrendGlobalDaily,
             Footer
