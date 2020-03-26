@@ -7,11 +7,11 @@
             <div class="card-header">Negara</div>
             <div class="card-body">
                 <b-tabs content-class="mt-3">
-                    <b-tab title="Total Terkini" active><SummaryCountry/></b-tab>
+                    <b-tab title="Total Terkini" active><SummaryCountry v-on:countryselected="countrySelected"/></b-tab>
                     <b-tab title="Tren Perhari"><TrendIndonesiaDaily/></b-tab>
                     <b-tab title="Work in progress!" disabled><p>Work in proggress!</p></b-tab>
                 </b-tabs>
-                <DataTableIndonesia/>
+                <DataTableIndonesia v-if="isIndonesia"/>
             </div>
         </div>
         <TrendGlobalDaily/>
@@ -41,7 +41,13 @@
         },
         data() {
             return {
+                isIndonesia: true,
                 logo: 'https://covid19.mathdro.id/api/countries/Indonesia/og'
+            }
+        },
+        methods: {
+            countrySelected (countryCode) {
+                this.isIndonesia = countryCode == 'IDN'
             }
         },
         metaInfo: {

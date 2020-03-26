@@ -81,6 +81,7 @@
             countryselected(countrySelected) {
                 this.countryCodeSelected = countrySelected
                 this.renderChartData()
+                this.$emit('countryselected', this.countryCodeSelected)
             },
             fetchCountryData() {
                 this.isLoading = true
