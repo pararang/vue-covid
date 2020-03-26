@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <SummaryGlobal/>
         <div class="card">
-            <div class="card-header">Indonesia</div>
+            <div class="card-header">Negara</div>
             <div class="card-body">
                 <b-tabs content-class="mt-3">
                     <b-tab title="Total Terkini" active><SummaryCountry/></b-tab>
