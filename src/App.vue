@@ -4,17 +4,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <SummaryGlobal/>
         <div class="card">
-            <div class="card-header">Negara</div>
+            <div class="card-header">Indonesia</div>
             <div class="card-body">
                 <b-tabs content-class="mt-3">
                     <b-tab title="Total Terkini" active><SummaryCountry v-on:countryselected="countrySelected"/></b-tab>
-                    <b-tab title="Tren Perhari"><TrendIndonesiaDaily/></b-tab>
+                    <b-tab v-if="isIndonesia" title="Tren Perhari"><TrendIndonesiaDaily/></b-tab>
                     <b-tab title="Work in progress!" disabled><p>Work in proggress!</p></b-tab>
                 </b-tabs>
                 <DataTableIndonesia v-if="isIndonesia"/>
             </div>
         </div>
-        <TrendGlobalDaily/>
+        <div class="card">
+            <div class="card-header">Global</div>
+            <div class="card-body">
+                <b-tabs content-class="mt-3">
+                    <b-tab title="Tren Perhari" active><TrendGlobalDaily/></b-tab>
+                    <b-tab title="Cek Per Negara"><CurrentPerCountry/></b-tab>
+                </b-tabs>
+            </div>
+        </div>
         <Footer/>
     </div>
 </template>
@@ -25,6 +33,7 @@
     import SummaryCountry from "./components/indonesia/Summary";
     import DataTableIndonesia from "./components/indonesia/DataTable";
     import TrendGlobalDaily from "./components/global/TrendDaily";
+    import CurrentPerCountry from './components/global/CurrentPerCountry';
     import Footer from "./components/footer/Footer";
 
     const metaCard = 'https://covid19.mathdro.id/api/countries/Indonesia/og';
@@ -36,6 +45,7 @@
             TrendIndonesiaDaily,
             SummaryCountry,
             DataTableIndonesia,
+            CurrentPerCountry,
             TrendGlobalDaily,
             Footer
         },

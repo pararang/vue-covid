@@ -1,7 +1,5 @@
 <template>
-    <div class="card">
-        <div class="card-header">Global</div>
-        <div class="card-body" style="height: 428px;">
+    <div class="card-body" style="height: 428px;">
             <content-loader :is-loading="isLoading" @refresh-data="renderDataTrendGlobal">
                 <template v-slot:content>
                     <GChart type="AreaChart" :data="chartData" :options="chartOptions" />
@@ -9,7 +7,6 @@
                 </template>
             </content-loader>
         </div>
-    </div>
 
 </template>
 

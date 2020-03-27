@@ -1,5 +1,9 @@
 <template>
-    <div class="card">
+    <div>
+        <div class="align-item-center">
+            <b-form-select v-model="countryCodeSelected" :options="countryCodeOptions" @change="countryselected" class="btn btn-light text-center" style="text-align-last: center; background-color: rgba(0, 0, 0, 0.03);">
+            </b-form-select>
+        </div>
         <div class="card-body" style="height: 313px;">
             <content-loader :is-loading="isLoading" @refresh-data="renderChartData">
                 <template v-slot:content>
@@ -66,16 +70,52 @@
             }
         },
         computed: {
-            
+            countryName() {
+                if (this.countryCodeSelected == null)
+                    return ""
+                let datum = this.countryCodeOptions.find(item => item.value === this.countryCodeSelected);
+                return datum.text;
+            }
         },
         methods: {
+            countryselected(countrySelected) {
+                this.countryCodeSelected = countrySelected
+                this.renderChartData()
+                this.$emit('countryselected', this.countryCodeSelected)
+            },
+            fetchCountryData() {
+                this.isLoading = true
+                this.countryCodeOptions = []
+                apiServiceCovid.getDataCountryCode()
+                    .then((data) => {
+                        let countries = []
+                        data.countries.forEach(function (val) {
+                            countries.push({
+                                value: val.iso3,
+                                text: val.name
+                            })
+                        })
+                        this.countryCodeOptions = countries
+                        this.countryCodeSelected = this.countryCodeIndonesia
+                    })
+                    .then(() => {
+                        this.renderChartData()
+                    })
+                    .catch(error => {
+                        console.error(error)
+                    })
+                    .finally(() => {
+                        this.isLoading = false
+                    })
+            },
             renderChartData() {
                 this.isLoading = true
                 this.chartData = []
-                apiServiceCovid.getDataSummaryPerCountry(this.countryCodeIndonesia)
+                apiServiceCovid.getDataSummaryPerCountry(this.countryCodeSelected)
                     .then((data) => {
                         //if API Covid is corrupted and selected country is Indonesia, fetch data from API Indonesia
-                        if (data.recovered.value == 0 || data.deaths.value == 0 || data.confirmed.value == 0) {
+                        if ((data.recovered.value == 0 || data.deaths.value == 0 || data.confirmed.value == 0) &&
+                            this.countryCodeSelected == this.countryCodeIndonesia) {
                             this.renderNationalChartData();
                         } else {
                             this.chartData.push(['Element', 'Jumlah Pasien', {
@@ -133,7 +173,7 @@
         },
 
         mounted() {
-            this.renderChartData();
+            this.fetchCountryData();
         },
     }
 </script>
