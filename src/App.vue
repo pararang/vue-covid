@@ -10,11 +10,11 @@
                     <b-tab title="Total Terkini" active lazy>
                         <SummaryCountry />
                     </b-tab>
-                    <b-tab title="Tren Perhari">
+                    <b-tab title="Tren Perhari" lazy>
                         <TrendIndonesiaDaily />
                     </b-tab>
-                    <b-tab title="Work in progress!" disabled>
-                        <p>Work in proggress!</p>
+                    <b-tab title="Provinsi" lazy>
+                        <ProvinceChart />
                     </b-tab>
                 </b-tabs>
                 <DataTableIndonesia v-if="isIndonesia" />
@@ -43,6 +43,7 @@
     import SummaryGlobal from './components/global/Summary';
     import TrendIndonesiaDaily from './components/indonesia/Trend';
     import SummaryCountry from "./components/indonesia/Summary";
+    import ProvinceChart from "./components/indonesia/Province";
     import DataTableIndonesia from "./components/indonesia/DataTable";
     import TrendGlobalDaily from "./components/global/TrendDaily";
     import CurrentPerCountry from './components/global/CurrentPerCountry';
@@ -55,6 +56,7 @@
         components: {
             SummaryGlobal,
             TrendIndonesiaDaily,
+            ProvinceChart,
             SummaryCountry,
             DataTableIndonesia,
             CurrentPerCountry,
