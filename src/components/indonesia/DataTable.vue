@@ -1,7 +1,7 @@
 <template>
     <div>
         <br>
-        <h8 class="title"><strong>Data Per Provinsi</strong></h8>
+        <p class="title"><strong>Data Per Provinsi</strong></p>
         <Grid :style="{height: '350px'}" :data-items="sortedData" :columns="columns" :sortable="true" :sort="sort"
               @sortchange="sortChangeHandler">
         </Grid>

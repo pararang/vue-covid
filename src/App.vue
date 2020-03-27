@@ -5,9 +5,9 @@
         <div class="card">
             <div class="card-header">Indonesia</div>
             <div class="card-body">
-                <b-tabs active-nav-item-class="font-weight-bold btn btn-secondary" active-tab-class=""
+                <b-tabs active-nav-item-class="font-weight-bold btn" active-tab-class=""
                     content-class="mt-3" fill>
-                    <b-tab title="Total Terkini" active>
+                    <b-tab title="Total Terkini" active lazy>
                         <SummaryCountry />
                     </b-tab>
                     <b-tab title="Tren Perhari">
@@ -24,7 +24,7 @@
             <div class="card-header">Global</div>
             <div class="card-body">
                 <SummaryGlobal /><br/>
-                 <b-tabs active-nav-item-class="font-weight-bold btn btn-secondary" active-tab-class=""
+                 <b-tabs active-nav-item-class="font-weight-bold btn" active-tab-class=""
                     content-class="mt-3" fill>
                     <b-tab title="Tren Perhari" active lazy>
                         <TrendGlobalDaily />
