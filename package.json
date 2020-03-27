@@ -18,7 +18,6 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.6.1",
-    "core-js": "^3.6.4",
     "moment": "latest",
     "numeral": "^2.0.6",
     "vue": "^2.6.11",
@@ -26,11 +25,8 @@
     "vue-apexcharts": "^1.5.2",
     "vue-class-component": "^7.2.3",
     "vue-google-charts": "^0.3.2",
-    "vue-gtag": "^1.6.2",
-    "vue-loading-overlay": "^3.3.2",
     "vue-meta": "^2.3.3",
     "vue-moment": "^4.1.0",
-    "vuejs-datatable": "^2.0.0-alpha.7",
     "vuetrend": "^0.3.4"
   },
   "devDependencies": {
