@@ -2,6 +2,7 @@
     <div id="app" class="container">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <Header></Header>
         <div class="card">
             <div class="card-header">Indonesia</div>
             <div class="card-body">
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+    import Header from './components/header/Header';
     import SummaryGlobal from './components/global/Summary';
     import TrendIndonesiaDaily from './components/indonesia/Trend';
     import SummaryCountry from "./components/indonesia/Summary";
@@ -53,6 +55,7 @@
     export default {
         name: 'App',
         components: {
+            Header,
             SummaryGlobal,
             TrendIndonesiaDaily,
             SummaryCountry,
