@@ -37,4 +37,10 @@ export class APIServiceCovid {
         let data = axios.get(url).then(response => response.data);
         return data;
     }
+
+    getImageSummaryByCountry(countryCode) {
+        const url = `${API_URL}/countries/`+countryCode+`/og`;
+        let data = axios.get(url).then(response => response.data);
+        return data;
+    }
 }
