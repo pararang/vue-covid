@@ -87,6 +87,7 @@
         },
         mounted() {
             this.renderTrendIndonesia();
+            this.$parent.$on('click', this.renderTrendIndonesia);
         },
     }
 </script>
