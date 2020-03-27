@@ -1,26 +1,20 @@
 <template>
     <div>
-        <div class="footer-copyright text-center py-3">© 2020
+        <div class="footer-copyright text-center py-3">© {{ currentYear }}
             <a :href="repoUrl">{{ repoDescription }}</a>
-            <p class="small">|
-            <span v-for="people in repoContributors" v-bind:key="people.login">
-                <a :href="people.html_url"> {{ people.login }} </a>|
+            <p>
+            <span v-for="people in repoContributors" v-bind:key="people.login" class="mb-4">
+                <b-avatar variant="info" :src="people.avatar_url" :href="people.html_url"></b-avatar>
             </span>
             </p>
         </div>
-<!--        <div class="row">-->
-<!--            <div v-for="people in repoContributors">-->
-<!--                <div class="column">-->
-<!--                    <img :src="people.avatar_url" :alt="people.login" :title="people.login">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 
 </template>
 
 <script>
-    import { APIServiceGithub } from "../../services/APIServiceGithub";
+    import {APIServiceGithub} from "../../services/APIServiceGithub";
+    import moment from 'moment';
 
     const apiGithub = new APIServiceGithub();
 
@@ -44,13 +38,11 @@
                     this.repoUrl = data.html_url;
                     this.repoDescription = data.description;
                 });
-            },
-            getContributorNames() {
-                let names = [];
-                this.repoContributors.forEach(function (people) {
-                    names.push(people.login);
-                });
-                return names.join(', ');
+            }
+        },
+        computed: {
+            currentYear: function () {
+                return moment().year();
             }
         },
         mounted() {
@@ -64,14 +56,16 @@
     .row {
         display: flex;
     }
+
     .column {
         flex: 33.33%;
         padding: 5px;
     }
+
     img {
         display: block;
-        max-width:230px;
-        max-height:95px;
+        max-width: 230px;
+        max-height: 95px;
         width: auto;
         height: auto;
     }

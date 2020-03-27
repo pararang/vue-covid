@@ -24,7 +24,7 @@
     import {
         orderBy
     } from '@progress/kendo-data-query';
-    import moment from 'moment'
+    import moment from 'moment';
 
     const apiService = new APIServiceCovid();
     
