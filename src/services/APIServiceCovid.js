@@ -8,6 +8,10 @@ export class APIServiceCovid {
 
     }
 
+    getBaseUrl() {
+        return API_URL;
+    }
+
     getDataGlobal() {
         const url = `${API_URL}`;
         let data = axios.get(url).then(response => response.data);
