@@ -32,6 +32,9 @@
                     <b-tab title="Cek Per Negara" lazy>
                         <CurrentPerCountry />
                     </b-tab>
+                    <b-tab title="Top Global" lazy>
+                        <DataGlobalGraph />
+                    </b-tab>
                 </b-tabs>
             </div>
         </div>
@@ -47,6 +50,7 @@
     import ProvinceChart from "./components/indonesia/Province";
     import TrendGlobalDaily from "./components/global/TrendDaily";
     import CurrentPerCountry from './components/global/CurrentPerCountry';
+    import DataGlobalGraph from "./components/global/DataGraph";
     import Footer from "./components/footer/Footer";
 
     const metaCard = 'https://covid19.mathdro.id/api/countries/Indonesia/og';
@@ -61,6 +65,7 @@
             SummaryCountry,
             CurrentPerCountry,
             TrendGlobalDaily,
+            DataGlobalGraph,
             Footer
         },
         data() {
