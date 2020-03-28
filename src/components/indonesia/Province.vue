@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body" style="height: auto;">
-            <content-loader :is-loading="isLoading" @refresh-data="renderTrendIndonesia">
+            <content-loader :is-loading="isLoading" @refresh-data="renderChartProvinces">
                 <template v-slot:content>
                     <div style="text-align: left;">
                         <b-button @click="changeCategory('positive')" :variant="activeTab === 'positive'? 'success': 'outline-success'" pill>Positif</b-button>
@@ -24,7 +24,6 @@
         APIServiceCovidIndonesia
     } from '../../services/APIServiceCovidIndonesia';
     import {Chart} from 'highcharts-vue'
-    import moment from 'moment';
     import ContentLoader from '@/components/ContentLoader';
 
     const apiServiceCovidIndonesia = new APIServiceCovidIndonesia();
@@ -43,7 +42,6 @@
                 caseRecovery: [],
                 chartOption: {
                     chart: { type: 'bar', height: 1000 },
-                    title: { style: {'display':  'none'}},
                     title: { style: {'display':  'none'}},
                     xAxis: { categories: [], allowDecimals: false},
                     yAxis: {
@@ -71,7 +69,7 @@
             }
         },
         methods: {
-            renderTrendIndonesia() {
+            renderChartProvinces() {
                 this.isLoading = true
                 apiServiceCovidIndonesia.fetchDataPerProvince()
                     .then((response) => {
@@ -137,8 +135,7 @@
             }
         },
         mounted() {
-            this.renderTrendIndonesia();
-            this.$parent.$on('click', this.renderTrendIndonesia);
+            this.renderChartProvinces();
         },
     }
 </script>
