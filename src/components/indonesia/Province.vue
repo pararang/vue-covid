@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body" style="min-height: 662px;">
-            <content-loader :is-loading="isLoading" @refresh-data="renderTrendIndonesia">
+            <content-loader :is-loading="isLoading" @refresh-data="renderChartProvinces">
                 <template v-slot:content>
                     <div style="text-align: left;">
                         <b-button @click="changeCategory('positive')" :variant="activeTab === 'positive'? 'success': 'outline-success'" pill>Positif</b-button>
@@ -16,7 +16,6 @@
             </content-loader>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -24,7 +23,6 @@
         APIServiceCovidIndonesia
     } from '../../services/APIServiceCovidIndonesia';
     import {Chart} from 'highcharts-vue'
-    import moment from 'moment';
     import ContentLoader from '@/components/ContentLoader';
 
     const apiServiceCovidIndonesia = new APIServiceCovidIndonesia();
@@ -39,11 +37,10 @@
                 activeTab: 'positive',
                 casePositive: [],
                 caseDied: [],
-                showTop10: true,
                 caseRecovery: [],
+                showTop10: true,
                 chartOption: {
                     chart: { type: 'bar', height: 1000 },
-                    title: { style: {'display':  'none'}},
                     title: { style: {'display':  'none'}},
                     xAxis: { categories: [], allowDecimals: false},
                     yAxis: {
@@ -72,14 +69,21 @@
                         }
                     },
                     legend: {enabled: false},
-                    credits: { enabled: false },
-                    series: [{ name: '', data: [] }]
+                    series: [{ name: '', data: [] }],
+                    caption: {
+                        text: '<b>Catatan:</b><br><em>Kasus positif/meninggal/sembuh yang data asal provinsinya tidak diketahui dimasukan dalam label provinsi <b>Indonesia</b>.</em>'
+                    },
+                    credits: {
+                        text: 'Sumber data.',
+                        href: '#'
+                    },
                 }
             }
         },
         methods: {
-            renderTrendIndonesia() {
+            renderChartProvinces() {
                 this.isLoading = true
+                this.chartOption.credits.href = apiServiceCovidIndonesia.getBaseUrl();
                 apiServiceCovidIndonesia.fetchDataPerProvince()
                     .then((response) => {
                         // Copy array
@@ -156,8 +160,7 @@
             }
         },
         mounted() {
-            this.renderTrendIndonesia();
-            this.$parent.$on('click', this.renderTrendIndonesia);
+            this.renderChartProvinces();
         },
     }
 </script>
