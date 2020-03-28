@@ -1,10 +1,12 @@
 <template>
-    <div style="height: auto;">
-        <content-loader :is-loading="isLoading" @refresh-data="renderTrendIndonesia">
-            <template v-slot:content>
-                <highcharts :options="chartOption"></highcharts>
-            </template>
-        </content-loader>
+    <div class="card">
+        <div class="card-body" style="height: auto;">
+            <content-loader :is-loading="isLoading" @refresh-data="renderTrendIndonesia">
+                <template v-slot:content>
+                    <highcharts :options="chartOption"></highcharts>
+                </template>
+            </content-loader>
+        </div>
     </div>
 </template>
 
