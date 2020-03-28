@@ -95,13 +95,21 @@
                         this.casePositive.sort((a, b) => {
                             if (a.kasusPosi < b.kasusPosi) return 1;
                             if (a.kasusPosi > b.kasusPosi) return -1;
-                            // else {
-                                if (a.provinsi > b.provinsi) return 1;
-                                if (a.provinsi < b.provinsi) return -1;
-                            // }
+                            if (a.provinsi > b.provinsi) return 1;
+                            if (a.provinsi < b.provinsi) return -1;
                         })
-                        this.caseDied.sort((a, b) => b.kasusMeni - a.kasusMeni)
-                        this.caseRecovery.sort((a, b) => b.kasusSemb - a.kasusSemb)
+                        this.caseDied.sort((a, b) => {
+                            if (a.kasusMeni < b.kasusMeni) return 1;
+                            if (a.kasusMeni > b.kasusMeni) return -1;
+                            if (a.provinsi > b.provinsi) return 1;
+                            if (a.provinsi < b.provinsi) return -1;
+                        })
+                        this.caseRecovery.sort((a, b) => {
+                            if (a.kasusSemb < b.kasusSemb) return 1;
+                            if (a.kasusSemb > b.kasusSemb) return -1;
+                            if (a.provinsi > b.provinsi) return 1;
+                            if (a.provinsi < b.provinsi) return -1;
+                        })
 
                         this.changeCategory('positive')
                     })
