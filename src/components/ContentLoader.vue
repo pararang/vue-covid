@@ -1,6 +1,6 @@
 <template>
     <div class="content-loader">
-        <div style="text-align: right;">
+        <div style="text-align: right;" class="mb-2">
             <b-button @mouseover="animatedIcon = true" @mouseleave="animatedIcon = false" pill @click="refreshData()" variant="primary" :disabled="isLoading">
                 <b-icon-arrow-clockwise :animation="isLoading || animatedIcon? 'spin': ''"></b-icon-arrow-clockwise> {{!isLoading? 'Muat Ulang': 'Sedang Memuat...'}}
             </b-button>
