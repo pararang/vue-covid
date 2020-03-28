@@ -11,27 +11,20 @@
 </template>
 
 <script>
-    import {
-        APIServiceCovidIndonesia
-    } from '../../services/APIServiceCovidIndonesia';
+    import {APIServiceCovidIndonesia} from '../../services/APIServiceCovidIndonesia';
     import {Chart} from 'highcharts-vue'
     import ContentLoader from '@/components/ContentLoader';
     import moment from "moment";
 
     const apiServiceCovidIndonesia = new APIServiceCovidIndonesia();
     export default {
-        name: "TerndIndonesiaDaily",
+        name: "TrendIndonesiaDaily",
         components: {
             ContentLoader, highcharts: Chart
         },
         data() {
             return {
                 isLoading: true,
-                activeTab: 'positive',
-                casePositive: [],
-                caseDied: [],
-                caseRecovery: [],
-                showTop10: true,
                 chartOption: {
                     chart: {
                         type: 'areaspline'

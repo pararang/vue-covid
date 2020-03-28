@@ -1,22 +1,18 @@
 <template>
-    <div class="card-body" style="height: 428px;">
+    <div class="card">
+        <div class="card-body" style="height: auto;">
             <content-loader :is-loading="isLoading" @refresh-data="renderDataTrendGlobal">
                 <template v-slot:content>
-                    <GChart type="AreaChart" :data="chartData" :options="chartOptions" />
-                    <!-- <p class="small">Pembaharuan terakhir: {{ lastUpdate }}</p> -->
+                    <highcharts :options="chartOption"></highcharts>
                 </template>
             </content-loader>
         </div>
-
+    </div>
 </template>
 
 <script>
-    import {
-        GChart
-    } from 'vue-google-charts'
-    import {
-        APIServiceCovid
-    } from '../../services/APIServiceCovid';
+    import {Chart} from 'highcharts-vue';
+    import {APIServiceCovid} from '../../services/APIServiceCovid';
     import moment from 'moment';
     import ContentLoader from '@/components/ContentLoader';
 
@@ -24,61 +20,77 @@
     export default {
         name: "TrendGlobalDaily",
         components: {
-            GChart, ContentLoader
+            ContentLoader, highcharts: Chart
         },
         data() {
             return {
                 isLoading: true,
-                dataTrendMainlandChina: [],
-                dataTrendOtherLocations: [],
-                chartData: [],
-                chartOptions: {
+                chartOption: {
                     chart: {
-                        title: 'Tren Global',
+                        type: 'areaspline'
                     },
-                    legend: {position: 'right'},
-                    is3D: false,
-                    isStacked: false,
-                    aggregationTarget: 'series',
-                    height: 350,
-                    vAxis: {
-                        // ticks: [0, 25000],
-                        // gridlines: {multiple: 1000},
-                        scaleType: 'liniear'
-                    }
-                },
+                    title: {
+                        text: ''
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'left',
+                        verticalAlign: 'top',
+                        x: 150,
+                        y: 100,
+                        floating: true,
+                        borderWidth: 1,
+                    },
+                    xAxis: {
+                        categories: [],
+                        title: {
+                            text: 'Waktu (Tanggal/Bulan)'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Jumlah Kasus'
+                        }
+                    },
+                    tooltip: {
+                        shared: true,
+                        valueSuffix: ' orang'
+                    },
+                    plotOptions: {
+                        areaspline: {
+                            fillOpacity: 0.5
+                        }
+                    },
+                    credits: {
+                        // enabled: false,
+                        text: 'Sumber data.',
+                        href: '#'
+                    },
+                    series: [] // array of object {name: 'John', data: [3, 4, 3, 5, 4, 10, 12]}
+                }
             };
         },
         methods: {
             renderDataTrendGlobal() {
-                this.isLoading = true
-                this.chartData = [],
+                this.isLoading = true;
+                this.chartOption.credits.href = apiService.getBaseUrl();
+                this.chartOption.xAxis.categories = this.chartOption.series = [];
                 apiService.getDataDailyGlobal()
                     .then((data) => {
-                        this.chartData.push(['Tanggal', 'Global', 'China (Mainland)', 'Lokasi lainnya']);
-                        // console.log(data.length);
-                        let vAxisInterval = 20000;
-                        let maxVAxis = 0;
-                        // let ticks = [];
+                        let dates = [];
+                        let dataGlobal = [];
+                        let dataMainlandChina = [];
+                        let dataOtherLocations = [];
                         for (let [i, day] of data.entries()) {
-                            let perDay = [
-                                moment(day.reportDate).format('D/MM'),
-                                day.mainlandChina + day.otherLocations,
-                                day.mainlandChina,
-                                day.otherLocations
-                                ];
-                            this.chartData.push(perDay);
-
-                            //set v axis tick
-                            if (perDay[1] > maxVAxis) {
-                                maxVAxis = perDay[1];
-                            }
-                            let xAxisTickQuantity = Math.ceil(maxVAxis / vAxisInterval);
-                            for (let j = 0; j < xAxisTickQuantity; j++) {
-                                //TODO: vAxis not defined
-                                // this.chartOptions.vAxis.ticks.push(j * vAxisInterval);
-                            }
+                            dates.push(moment(day.tanggal).format('D/MM'));
+                            dataGlobal.push(day.mainlandChina + day.otherLocations);
+                            dataMainlandChina.push(day.mainlandChina);
+                            dataOtherLocations.push(day.otherLocations);
                         }
+                        this.chartOption.xAxis.categories = dates;
+                        this.chartOption.series.push({name: 'Global', data: dataGlobal});
+                        this.chartOption.series.push({name: 'China (Mainland)', data: dataMainlandChina});
+                        this.chartOption.series.push({name: 'Lokasi lainnya', data: dataOtherLocations});
                     })
                     .catch(error => {console.error(error)})
                     .finally(error => { this.isLoading = false })
