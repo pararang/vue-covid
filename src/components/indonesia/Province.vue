@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-body" style="height: auto;">
+        <div class="card-body" style="min-height: 662px;">
             <content-loader :is-loading="isLoading" @refresh-data="renderTrendIndonesia">
                 <template v-slot:content>
                     <div style="text-align: left;">
@@ -61,7 +61,13 @@
                     plotOptions: {
                         bar: {
                             dataLabels: {
-                                enabled: true
+                                enabled: true,
+                                // format: '{y}  <b>({percentage}%)</b>',
+                                formatter: function() {
+                                    return `${this.y} <span style="color: grey">(${this.percentage}%)</span>`;
+                                },
+                                inside: false,
+                                useHTML: true
                             }
                         }
                     },
@@ -104,21 +110,33 @@
                 let dataSeries = []
                 let nameSeries = 'Sembuh'
                 let chartHeight = 1000
+                let total = 0
 
                 switch (this.activeTab) {
                     case 'positive':
+                        total = this.casePositive.reduce(function (acc, obj) { return acc + obj.kasusPosi; }, 0);
                         nameSeries = 'Positif'
                         categories = this.casePositive.map(item => { return item.provinsi })
-                        dataSeries = this.casePositive.map(item => { return item.kasusPosi })
+                        dataSeries = this.casePositive.map(item => {
+                            return {name: item.provinsi, y: item.kasusPosi, percentage: (item.kasusPosi/total * 100).toFixed(2)}
+                        })
+
+                        console.log({dataSeries})
                         break;
                     case 'died':
+                        total = this.casePositive.reduce(function (acc, obj) { return acc + obj.kasusMeni; }, 0);
                         nameSeries = 'Meningggal'
                         categories = this.caseDied.map(item => { return item.provinsi })
-                        dataSeries = this.caseDied.map(item => { return item.kasusMeni })
+                        dataSeries = this.caseDied.map(item => {
+                            return {name: item.provinsi, y: item.kasusMeni, percentage: (item.kasusMeni/total * 100).toFixed(2)}
+                        })
                         break;
                     default:
+                        total = this.casePositive.reduce(function (acc, obj) { return acc + obj.kasusSemb; }, 0);
                         categories = this.caseRecovery.map(item => { return item.provinsi })
-                        dataSeries = this.caseRecovery.map(item => { return item.kasusSemb })
+                        dataSeries = this.caseRecovery.map(item => {
+                            return {name: item.provinsi, y: item.kasusSemb, percentage: (item.kasusSemb/total * 100).toFixed(2)}
+                        })
                         break;
                 }
 
