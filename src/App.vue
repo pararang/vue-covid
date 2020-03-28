@@ -45,7 +45,6 @@
     import TrendIndonesiaDaily from './components/indonesia/Trend';
     import SummaryCountry from "./components/indonesia/Summary";
     import ProvinceChart from "./components/indonesia/Province";
-    import DataTableIndonesia from "./components/indonesia/DataTable";
     import TrendGlobalDaily from "./components/global/TrendDaily";
     import CurrentPerCountry from './components/global/CurrentPerCountry';
     import Footer from "./components/footer/Footer";
@@ -60,7 +59,6 @@
             TrendIndonesiaDaily,
             ProvinceChart,
             SummaryCountry,
-            DataTableIndonesia,
             CurrentPerCountry,
             TrendGlobalDaily,
             Footer

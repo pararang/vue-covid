@@ -14,6 +14,10 @@ export class APIServiceCovidIndonesia {
         };
     }
 
+    getBaseUrl () {
+        return API_URL;
+    }
+
     httpGet = async function (url) {
         const response = await axios.get(url);
         return response;

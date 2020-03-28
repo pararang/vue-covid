@@ -1,6 +1,5 @@
 <template>
-    <div class="card">
-        <div class="card-body" style="height: auto;">
+        <div style="height: auto;">
             <content-loader :is-loading="isLoading" @refresh-data="renderChartProvinces">
                 <template v-slot:content>
                     <div style="text-align: left;">
@@ -15,7 +14,6 @@
                 </template>
             </content-loader>
         </div>
-    </div>
 
 </template>
 
@@ -38,8 +36,8 @@
                 activeTab: 'positive',
                 casePositive: [],
                 caseDied: [],
-                showTop10: true,
                 caseRecovery: [],
+                showTop10: true,
                 chartOption: {
                     chart: { type: 'bar', height: 1000 },
                     title: { style: {'display':  'none'}},
@@ -63,14 +61,21 @@
                         }
                     },
                     legend: {enabled: false},
-                    credits: { enabled: false },
-                    series: [{ name: '', data: [] }]
+                    series: [{ name: '', data: [] }],
+                    caption: {
+                        text: '<b>Catatan:</b><br><em>Kasus positif/meninggal/sembuh yang data asal provinsinya tidak diketahui dimasukan dalam label provinsi <b>Indonesia</b>.</em>'
+                    },
+                    credits: {
+                        text: 'Sumber data.',
+                        href: '#'
+                    },
                 }
             }
         },
         methods: {
             renderChartProvinces() {
                 this.isLoading = true
+                this.chartOption.credits.href = apiServiceCovidIndonesia.getBaseUrl();
                 apiServiceCovidIndonesia.fetchDataPerProvince()
                     .then((response) => {
                         // Copy array
