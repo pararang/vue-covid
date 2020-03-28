@@ -3,10 +3,16 @@
         <div class="card-body" style="min-height: 662px;">
             <content-loader :is-loading="isLoading" @refresh-data="renderChartProvinces">
                 <template v-slot:content>
-                    <div style="text-align: left;" class="mb-1">
-                        <b-button @click="changeCategory('positive')" :variant="activeTab === 'positive'? 'success': 'outline-success'" pill>Positif</b-button>
-                        <b-button @click="changeCategory('died')" :variant="activeTab === 'died'? 'success': 'outline-success'" class="ml-2" pill>Meninggal</b-button>
-                        <b-button @click="changeCategory('recovery')" :variant="activeTab === 'recovery'? 'success': 'outline-success'" class="ml-2" pill>Sembuh</b-button>
+                    <div style="text-align: left;" class="mb-1 horizontal-scroll hide-scroll">
+                        <b-button @click="changeCategory('positive')" :variant="activeTab === 'positive'? 'warning': 'outline-secondary'" pill>
+                            <fai icon="frown-open"/> Positif
+                        </b-button>
+                        <b-button @click="changeCategory('died')" :variant="activeTab === 'died'? 'danger': 'outline-secondary'" class="ml-2" pill>
+                            <fai icon="dizzy"/> Meninggal
+                        </b-button>
+                        <b-button @click="changeCategory('recovery')" :variant="activeTab === 'recovery'? 'success': 'outline-secondary'" class="ml-2" pill>
+                            <fai icon="grin"/> Sembuh
+                        </b-button>
                     </div>
                     <highcharts :options="chartOption"></highcharts>
                     <div class="mt-1">
@@ -24,12 +30,16 @@
     } from '../../services/APIServiceCovidIndonesia';
     import {Chart} from 'highcharts-vue'
     import ContentLoader from '@/components/ContentLoader';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+    import { library } from '@fortawesome/fontawesome-svg-core'
+    import { faDizzy, faFrownOpen, faGrin } from '@fortawesome/free-solid-svg-icons'
+    library.add(faDizzy, faFrownOpen, faGrin)
 
     const apiServiceCovidIndonesia = new APIServiceCovidIndonesia();
     export default {
         name: "TrendGlobalDaily",
         components: {
-            ContentLoader, highcharts: Chart
+            ContentLoader, highcharts: Chart, fai: FontAwesomeIcon
         },
         data() {
             return {
@@ -66,6 +76,9 @@
                                 inside: false,
                                 useHTML: true
                             }
+                        },
+                        series: {
+                            borderColor: '#303030',
                         }
                     },
                     legend: {enabled: false},
@@ -123,6 +136,7 @@
                 let nameSeries = 'Sembuh'
                 let chartHeight = 1000
                 let total = 0
+                let barColor = '#28a745'
 
                 switch (this.activeTab) {
                     case 'positive':
@@ -132,6 +146,7 @@
                         dataSeries = this.casePositive.map(item => {
                             return {name: item.provinsi, y: item.kasusPosi, percentage: (item.kasusPosi/total * 100).toFixed(2)}
                         })
+                        barColor = '#ffc107'
                         break;
                     case 'died':
                         total = this.casePositive.reduce(function (acc, obj) { return acc + obj.kasusMeni; }, 0);
@@ -140,6 +155,7 @@
                         dataSeries = this.caseDied.map(item => {
                             return {name: item.provinsi, y: item.kasusMeni, percentage: (item.kasusMeni/total * 100).toFixed(2)}
                         })
+                        barColor = '#dc3545'
                         break;
                     default:
                         total = this.casePositive.reduce(function (acc, obj) { return acc + obj.kasusSemb; }, 0);
@@ -156,6 +172,7 @@
                     dataSeries = dataSeries.slice(0, 10)
                 }
 
+                this.chartOption.plotOptions.series.color = barColor
                 this.chartOption.chart.height = chartHeight
                 this.chartOption.xAxis.categories = categories
                 this.chartOption.series = [{name: nameSeries, data: dataSeries}]
@@ -177,5 +194,26 @@
 </script>
 
 <style scoped>
+    /* Scrolling */
+    .horizontal-scroll {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+    .horizontal-scroll:only-child {
+        display: inline-block;
+    }
+    .horizontal-scroll {
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    /* End of Scrolling */
 
+    /* Hide Scrolling */
+    .hide-scroll::-webkit-scrollbar{
+        display: none; /** Chrome */
+        -webkit-appearance: none; /** Safari */
+    }
+    .hide-scroll { scrollbar-width: none; } /** Firefox */
+    /* End of Hide Scrolling */
 </style>
