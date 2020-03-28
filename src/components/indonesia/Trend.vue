@@ -54,7 +54,7 @@
                     },
                     yAxis: {
                         title: {
-                            text: 'Korban'
+                            text: 'Jumlah Kasus'
                         }
                     },
                     tooltip: {
