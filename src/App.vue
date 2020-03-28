@@ -18,7 +18,6 @@
                         <ProvinceChart />
                     </b-tab>
                 </b-tabs>
-                <DataTableIndonesia v-if="isIndonesia" />
             </div>
         </div>
         <div class="card">
