@@ -48,7 +48,8 @@
                             text: 'Kasus',
                             align: 'high'
                         },
-                        labels: { overflow: 'justify' }
+                        labels: { overflow: 'justify' },
+                        allowDecimals: false
                     },
                     tooltip: {
                         valueSuffix: ' Kasus'
