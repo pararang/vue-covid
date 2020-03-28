@@ -3,13 +3,13 @@
         <div class="card-body" style="min-height: 662px;">
             <content-loader :is-loading="isLoading" @refresh-data="renderChartProvinces">
                 <template v-slot:content>
-                    <div style="text-align: left;">
+                    <div style="text-align: left;" class="mb-1">
                         <b-button @click="changeCategory('positive')" :variant="activeTab === 'positive'? 'success': 'outline-success'" pill>Positif</b-button>
                         <b-button @click="changeCategory('died')" :variant="activeTab === 'died'? 'success': 'outline-success'" class="ml-2" pill>Meninggal</b-button>
                         <b-button @click="changeCategory('recovery')" :variant="activeTab === 'recovery'? 'success': 'outline-success'" class="ml-2" pill>Sembuh</b-button>
                     </div>
                     <highcharts :options="chartOption"></highcharts>
-                    <div>
+                    <div class="mt-1">
                         <b-button @click="showAllProvince()" variant="outline-primary" pill>{{showTop10? 'Tampilkan semua provinsi': 'Tampilkan 10 provinsi'}}</b-button>
                     </div>
                 </template>
@@ -124,8 +124,6 @@
                         dataSeries = this.casePositive.map(item => {
                             return {name: item.provinsi, y: item.kasusPosi, percentage: (item.kasusPosi/total * 100).toFixed(2)}
                         })
-
-                        console.log({dataSeries})
                         break;
                     case 'died':
                         total = this.casePositive.reduce(function (acc, obj) { return acc + obj.kasusMeni; }, 0);
@@ -157,6 +155,11 @@
             showAllProvince() {
                 this.showTop10 = !this.showTop10
                 this.changeCategory(this.activeTab)
+
+                // Scroll to the top of chart
+                const element = document.getElementById('chart-indonesia')
+                const y = element.getBoundingClientRect().top + window.scrollY;
+                window.scroll({ top: y, behavior: 'smooth' });
             }
         },
         mounted() {

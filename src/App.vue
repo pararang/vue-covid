@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <Header></Header>
         <div class="card">
-            <div class="card-header">Indonesia</div>
+            <div class="card-header" id="chart-indonesia">Indonesia</div>
             <div class="card-body">
                 <b-tabs active-nav-item-class="font-weight-bold btn" active-tab-class=""
                     content-class="mt-3" fill>
