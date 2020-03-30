@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="card">
-            <div class="card-header">Global</div>
+            <div class="card-header" id="chart-global">Global</div>
             <div class="card-body">
                 <SummaryGlobal /><br/>
                  <b-tabs active-nav-item-class="font-weight-bold btn" active-tab-class=""
@@ -32,7 +32,7 @@
                     <b-tab title="Cek Per Negara" lazy>
                         <CurrentPerCountry />
                     </b-tab>
-                    <b-tab title="Top Global" lazy>
+                    <b-tab title="Data Terbanyak" lazy>
                         <DataGlobalGraph />
                     </b-tab>
                 </b-tabs>

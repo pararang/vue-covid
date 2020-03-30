@@ -4,13 +4,19 @@
             <content-loader :is-loading="isLoading" @refresh-data="renderChart">
                 <template v-slot:content>
                     <div style="text-align: left;" class="mb-1">
-                        <b-button @click="changeCategory('positive')" :variant="activeTab === 'positive'? 'success': 'outline-success'" pill>Positif</b-button>
-                        <b-button @click="changeCategory('died')" :variant="activeTab === 'died'? 'success': 'outline-success'" class="ml-2" pill>Meninggal</b-button>
-                        <b-button @click="changeCategory('recovery')" :variant="activeTab === 'recovery'? 'success': 'outline-success'" class="ml-2" pill>Sembuh</b-button>
+                        <b-button @click="changeCategory('positive')" :variant="activeTab === 'positive'? 'warning': 'outline-secondary'" pill>
+                            <fai icon="frown-open"/> Positif
+                        </b-button>
+                        <b-button @click="changeCategory('died')" :variant="activeTab === 'died'? 'danger': 'outline-secondary'" class="ml-2" pill>
+                            <fai icon="dizzy"/> Meninggal
+                        </b-button>
+                        <b-button @click="changeCategory('recovery')" :variant="activeTab === 'recovery'? 'success': 'outline-secondary'" class="ml-2" pill>
+                            <fai icon="grin"/> Sembuh
+                        </b-button>
                     </div>
                     <highcharts :options="chartOption"></highcharts>
                     <div class="mt-1">
-                        <b-button @click="showAllProvince()" variant="outline-primary" pill>{{showTop10? 'Tampilkan semua provinsi': 'Tampilkan 10 provinsi'}}</b-button>
+                        <b-button @click="showAllCountry()" variant="outline-primary" pill>{{showTop10? 'Tampilkan semua negara': 'Tampilkan 10 negara'}}</b-button>
                     </div>
                 </template>
             </content-loader>
@@ -24,13 +30,16 @@
     } from '../../services/APIServiceCovid';
     import {Chart} from 'highcharts-vue'
     import ContentLoader from '@/components/ContentLoader';
-    import numeral from 'numeral';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+    import { library } from '@fortawesome/fontawesome-svg-core'
+    import { faDizzy, faFrownOpen, faGrin } from '@fortawesome/free-solid-svg-icons'
+    library.add(faDizzy, faFrownOpen, faGrin)
 
     const apiServiceCovid = new APIServiceCovid();
     export default {
         name: "DataGlobalGraph",
         components: {
-            ContentLoader, highcharts: Chart
+            ContentLoader, highcharts: Chart, fai: FontAwesomeIcon
         },
         data() {
             return {
@@ -67,12 +76,15 @@
                                 inside: false,
                                 useHTML: true
                             }
+                        },
+                        series: {
+                            borderColor: '#303030',
                         }
                     },
                     legend: {enabled: false},
                     series: [{ name: '', data: [] }],
                     caption: {
-                        text: 'idem'
+                        text: '<b>Catatan:</b><br><em>Kasus positif/meninggal/sembuh yang data jumlah terbanyak pada tiap negara</em>'
                     },
                     credits: {
                         text: 'Sumber data.',
@@ -87,17 +99,17 @@
                 this.chartOption.credits.href = '';
                 apiServiceCovid.getDataConfirmedDetailGlobal().then((response) => {
                     var countries = [];
-                    response.map((data) => ({ provinsi: data.countryRegion, kasusPosi: data.confirmed, kasusSemb: data.recovered, kasusMeni: data.deaths }) )
+                    response.map((data) => ({ country: data.countryRegion, confirmed: data.confirmed, recovered: data.recovered, deaths: data.deaths }) )
                     .forEach(country => {
-                        var found = countries.find(o => o.provinsi === country.provinsi) // check double
-                        var index = countries.findIndex(o => o.provinsi === country.provinsi) // check index
+                        var found = countries.find(o => o.country === country.country) // check double
+                        var index = countries.findIndex(o => o.country === country.country) // check index
                         
                         if (found == undefined) {
                             countries.push(country)
                         } else {
-                            countries[index].kasusPosi = countries[index].kasusPosi + country.kasusPosi
-                            countries[index].kasusSemb = countries[index].kasusSemb + country.kasusSemb
-                            countries[index].kasusMeni = countries[index].kasusMeni + country.kasusMeni
+                            countries[index].confirmed = countries[index].confirmed + country.confirmed
+                            countries[index].recovered = countries[index].recovered + country.recovered
+                            countries[index].deaths = countries[index].deaths + country.deaths
                         }
                      })
                      
@@ -107,42 +119,28 @@
 
                      // Order data by descending
                      this.casePositive.sort((a, b) => {
-                         if (a.kasusPosi < b.kasusPosi) return 1;
-                         if (a.kasusPosi > b.kasusPosi) return -1;
-                         if (a.provinsi > b.provinsi) return 1;
-                         if (a.provinsi < b.provinsi) return -1;
+                         if (a.confirmed < b.confirmed) return 1;
+                         if (a.confirmed > b.confirmed) return -1;
+                         if (a.country > b.country) return 1;
+                         if (a.country < b.country) return -1;
                      })
                      this.caseDied.sort((a, b) => {
-                         if (a.kasusMeni < b.kasusMeni) return 1;
-                         if (a.kasusMeni > b.kasusMeni) return -1;
-                         if (a.provinsi > b.provinsi) return 1;
-                         if (a.provinsi < b.provinsi) return -1;
+                         if (a.deaths < b.deaths) return 1;
+                         if (a.deaths > b.deaths) return -1;
+                         if (a.country > b.country) return 1;
+                         if (a.country < b.country) return -1;
                      })
                      this.caseRecovery.sort((a, b) => {
-                         if (a.kasusSemb < b.kasusSemb) return 1;
-                         if (a.kasusSemb > b.kasusSemb) return -1;
-                         if (a.provinsi > b.provinsi) return 1;
-                         if (a.provinsi < b.provinsi) return -1;
+                         if (a.recovered < b.recovered) return 1;
+                         if (a.recovered > b.recovered) return -1;
+                         if (a.country > b.country) return 1;
+                         if (a.country < b.country) return -1;
                      })
 
                      this.changeCategory('positive')
                 })
                 .catch(error => {console.error(error)})
                 .finally(error => { this.isLoading = false })
-            },
-            getLocation(detail) {
-                if (null != detail.provinceState && null != detail.countryRegion) {
-                    return detail.provinceState + ' (' + detail.countryRegion + ')';
-                } else if (null == detail.provinceState && null != detail.countryRegion) {
-                    return detail.countryRegion;
-                } else if (null != detail.provinceState && null == detail.countryRegion) {
-                    return detail.provinceState;
-                } else {
-                    return 'n/a';
-                }
-            },
-            formatNumber(x) {
-                return numeral(x).format('0,0');
             },
             changeCategory(activeTab) {
                 this.activeTab = activeTab
@@ -151,29 +149,32 @@
                 let nameSeries = 'Sembuh'
                 let chartHeight = 1000
                 let total = 0
+                let barColor = '#28a745'
 
                 switch (this.activeTab) {
                     case 'positive':
-                        total = this.casePositive.reduce(function (acc, obj) { return acc + obj.kasusPosi; }, 0);
+                        total = this.casePositive.reduce(function (acc, obj) { return acc + obj.confirmed; }, 0);
                         nameSeries = 'Positif'
-                        categories = this.casePositive.map(item => { return item.provinsi })
+                        categories = this.casePositive.map(item => { return item.country })
                         dataSeries = this.casePositive.map(item => {
-                            return {name: item.provinsi, y: item.kasusPosi, percentage: (item.kasusPosi/total * 100).toFixed(2)}
+                            return {name: item.country, y: item.confirmed, percentage: (item.confirmed/total * 100).toFixed(2)}
                         })
+                        barColor = '#ffc107'
                         break;
                     case 'died':
-                        total = this.casePositive.reduce(function (acc, obj) { return acc + obj.kasusMeni; }, 0);
+                        total = this.casePositive.reduce(function (acc, obj) { return acc + obj.deaths; }, 0);
                         nameSeries = 'Meningggal'
-                        categories = this.caseDied.map(item => { return item.provinsi })
+                        categories = this.caseDied.map(item => { return item.country })
                         dataSeries = this.caseDied.map(item => {
-                            return {name: item.provinsi, y: item.kasusMeni, percentage: (item.kasusMeni/total * 100).toFixed(2)}
+                            return {name: item.country, y: item.deaths, percentage: (item.deaths/total * 100).toFixed(2)}
                         })
+                        barColor = '#dc3545'
                         break;
                     default:
-                        total = this.casePositive.reduce(function (acc, obj) { return acc + obj.kasusSemb; }, 0);
-                        categories = this.caseRecovery.map(item => { return item.provinsi })
+                        total = this.casePositive.reduce(function (acc, obj) { return acc + obj.recovered; }, 0);
+                        categories = this.caseRecovery.map(item => { return item.country })
                         dataSeries = this.caseRecovery.map(item => {
-                            return {name: item.provinsi, y: item.kasusSemb, percentage: (item.kasusSemb/total * 100).toFixed(2)}
+                            return {name: item.country, y: item.recovered, percentage: (item.recovered/total * 100).toFixed(2)}
                         })
                         break;
                 }
@@ -184,16 +185,17 @@
                     dataSeries = dataSeries.slice(0, 10)
                 }
 
+                this.chartOption.plotOptions.series.color = barColor
                 this.chartOption.chart.height = chartHeight
                 this.chartOption.xAxis.categories = categories
                 this.chartOption.series = [{name: nameSeries, data: dataSeries}]
             },
-            showAllProvince() {
+            showAllCountry() {
                 this.showTop10 = !this.showTop10
                 this.changeCategory(this.activeTab)
 
                 // Scroll to the top of chart
-                const element = document.getElementById('chart-indonesia')
+                const element = document.getElementById('chart-global')
                 const y = element.getBoundingClientRect().top + window.scrollY;
                 window.scroll({ top: y, behavior: 'smooth' });
             }
@@ -205,5 +207,26 @@
 </script>
 
 <style scoped>
+    /* Scrolling */
+    .horizontal-scroll {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+    .horizontal-scroll:only-child {
+        display: inline-block;
+    }
+    .horizontal-scroll {
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    /* End of Scrolling */
 
+    /* Hide Scrolling */
+    .hide-scroll::-webkit-scrollbar{
+        display: none; /** Chrome */
+        -webkit-appearance: none; /** Safari */
+    }
+    .hide-scroll { scrollbar-width: none; } /** Firefox */
+    /* End of Hide Scrolling */
 </style>
