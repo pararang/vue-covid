@@ -6,12 +6,10 @@
         <div class="card">
             <div class="card-header" id="chart-indonesia">Indonesia</div>
             <div class="card-body">
-                <b-tabs active-nav-item-class="font-weight-bold btn" active-tab-class=""
+                <indonesia-dashboard />
+                <b-tabs class="mt-4" active-nav-item-class="font-weight-bold btn" active-tab-class=""
                     content-class="mt-3" fill>
-                    <b-tab title="Total Terkini" active lazy>
-                        <SummaryCountry />
-                    </b-tab>
-                    <b-tab title="Tren Perhari" lazy>
+                    <b-tab title="Tren Perhari" active lazy>
                         <TrendIndonesiaDaily />
                     </b-tab>
                     <b-tab title="Provinsi" lazy>
@@ -46,8 +44,8 @@
     import Header from './components/header/Header';
     import SummaryGlobal from './components/global/Summary';
     import TrendIndonesiaDaily from './components/indonesia/Trend';
-    import SummaryCountry from "./components/indonesia/Summary";
     import ProvinceChart from "./components/indonesia/Province";
+    import IndonesiaDashboard from "./components/indonesia/Dashboard";
     import TrendGlobalDaily from "./components/global/TrendDaily";
     import CurrentPerCountry from './components/global/CurrentPerCountry';
     import DataGlobalGraph from "./components/global/DataGraph";
@@ -62,11 +60,11 @@
             SummaryGlobal,
             TrendIndonesiaDaily,
             ProvinceChart,
-            SummaryCountry,
             CurrentPerCountry,
             TrendGlobalDaily,
             DataGlobalGraph,
-            Footer
+            Footer,
+            IndonesiaDashboard
         },
         data() {
             return {
