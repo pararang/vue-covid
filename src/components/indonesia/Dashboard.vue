@@ -10,8 +10,7 @@
                                     <div class="col-6">
                                         <fai size="3x" icon="frown-open"/>
                                     </div>
-                                    <div class="col-6 total-case text-right">
-                                        {{confirmed}}
+                                        {{confirmed | separator}}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -32,8 +31,7 @@
                                     <div class="col-6">
                                         <fai size="3x" icon="dizzy"/>
                                     </div>
-                                    <div class="col-6 total-case text-right">
-                                        {{death}}
+                                        {{death | separator}}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -54,8 +52,7 @@
                                     <div class="col-6">
                                         <fai size="3x" icon="grin"/>
                                     </div>
-                                    <div class="col-6 total-case text-right">
-                                        {{recovered}}
+                                        {{recovered | separator}}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -76,8 +73,7 @@
                                     <div class="col-6">
                                         <fai size="3x" icon="meh"/>
                                     </div>
-                                    <div class="col-6 total-case text-right">
-                                        {{treatment}}
+                                        {{treatment | separator}}
                                     </div>
                                 </div>
                                 <div class="row">
