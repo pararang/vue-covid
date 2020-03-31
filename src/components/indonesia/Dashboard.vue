@@ -7,9 +7,10 @@
                         <div class="card statistics case__positive ">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <fai size="3x" icon="frown-open"/>
                                     </div>
+                                    <div class="col-8 total-case text-right">
                                         {{confirmed | separator}}
                                     </div>
                                 </div>
@@ -28,9 +29,10 @@
                         <div class="card statistics case__died">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <fai size="3x" icon="dizzy"/>
                                     </div>
+                                    <div class="col-8 total-case text-right">
                                         {{death | separator}}
                                     </div>
                                 </div>
@@ -49,9 +51,10 @@
                         <div class="card statistics case__recovery">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <fai size="3x" icon="grin"/>
                                     </div>
+                                    <div class="col-8 total-case text-right">
                                         {{recovered | separator}}
                                     </div>
                                 </div>
@@ -70,9 +73,10 @@
                         <div class="card statistics case__treatment ">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <fai size="3x" icon="meh"/>
                                     </div>
+                                    <div class="col-8 total-case text-right">
                                         {{treatment | separator}}
                                     </div>
                                 </div>
