@@ -140,6 +140,15 @@
                 treatment: '-'
             }
         },
+        filters: {
+            separator: function (value) {
+                if (!value) return ''
+                var formattedValue = ''
+                value = value.toString().split('').reverse().join('')
+                for(var i = 0; i < value.length; i++) if(i%3 == 0) formattedValue += value.substr(i,3)+'.'
+                return formattedValue.split('',formattedValue.length-1).reverse().join('')
+            }
+        },
         methods: {
             getPercentage(a){
                 if (a === '-' || this.confirmed === '-') return '-'
