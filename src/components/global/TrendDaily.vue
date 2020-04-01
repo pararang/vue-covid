@@ -82,7 +82,7 @@
                         let dataMainlandChina = [];
                         let dataOtherLocations = [];
                         for (let [i, day] of data.entries()) {
-                            dates.push(moment(day.tanggal).format('D/MM'));
+                            dates.push(moment(day.reportDate).format('D/MM'));
                             dataGlobal.push(day.mainlandChina + day.otherLocations);
                             dataMainlandChina.push(day.mainlandChina);
                             dataOtherLocations.push(day.otherLocations);
