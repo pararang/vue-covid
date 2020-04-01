@@ -45,7 +45,8 @@
                         categories: [],
                         title: {
                             text: 'Waktu (Tanggal/Bulan)'
-                        }
+                        },
+                        tickInterval: 3
                     },
                     yAxis: {
                         title: {
@@ -82,14 +83,16 @@
                         let dataConfirmed = [];
                         let dataDeaths = [];
                         let dataRecovery = [];
-                        // let ticks = [];
+                        let countData = days.length;
+                        let tickInterval = Math.floor((countData / 60) * this.chartOption.xAxis.tickInterval);
                         for (let [i, day] of days.entries()) {
                             dates.push(moment(day.tanggal).format('D/MM'));
                             dataConfirmed.push(day.jumlahKasusKumulatif);
                             dataDeaths.push(day.jumlahPasienMeninggal);
                             dataRecovery.push(day.jumlahPasienSembuh);
                         }
-                        this.chartOption.xAxis.categories = dates
+                        this.chartOption.xAxis.categories = dates;
+                        this.chartOption.xAxis.tickInterval = tickInterval;
                         this.chartOption.series.push({name: 'Positif', data: dataConfirmed});
                         this.chartOption.series.push({name: 'Meninggal', data: dataDeaths});
                         this.chartOption.series.push({name: 'Sembuh', data: dataRecovery});

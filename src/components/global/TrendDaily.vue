@@ -45,7 +45,8 @@
                         categories: [],
                         title: {
                             text: 'Waktu (Tanggal/Bulan)'
-                        }
+                        },
+                        tickInterval: 3
                     },
                     yAxis: {
                         title: {
@@ -81,6 +82,8 @@
                         let dataGlobal = [];
                         let dataMainlandChina = [];
                         let dataOtherLocations = [];
+                        let countData = data.length;
+                        let tickInterval = Math.floor((countData / 60) * this.chartOption.xAxis.tickInterval);
                         for (let [i, day] of data.entries()) {
                             dates.push(moment(day.reportDate).format('D/MM'));
                             dataGlobal.push(day.mainlandChina + day.otherLocations);
@@ -88,6 +91,7 @@
                             dataOtherLocations.push(day.otherLocations);
                         }
                         this.chartOption.xAxis.categories = dates;
+                        this.chartOption.xAxis.tickInterval = tickInterval;
                         this.chartOption.series.push({name: 'Global', data: dataGlobal});
                         this.chartOption.series.push({name: 'China (Mainland)', data: dataMainlandChina});
                         this.chartOption.series.push({name: 'Lokasi lainnya', data: dataOtherLocations});
