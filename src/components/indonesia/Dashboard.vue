@@ -163,7 +163,7 @@
                         if (data.recovered.value == 0 || data.deaths.value == 0 || data.confirmed.value == 0) {
                             this.renderNationalChartData();
                         } else {
-                            this.recovered = (data.recovered.value).toLocaleString('id-ID') || this.annotationOnNoData
+                            this.recovered = data.recovered.value || this.annotationOnNoData
                             this.death = data.deaths.value || this.annotationOnNoData
                             this.confirmed = data.confirmed.value || this.annotationOnNoData
                             this.lastUpdate = getDatetime(data.lastUpdate)
