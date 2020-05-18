@@ -7,11 +7,11 @@
                         <div class="card statistics case__positive ">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <fai size="3x" icon="frown-open"/>
                                     </div>
-                                    <div class="col-6 total-case text-right">
-                                        {{confirmed}}
+                                    <div class="col-8 total-case text-right">
+                                        {{confirmed | separator}}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -29,11 +29,11 @@
                         <div class="card statistics case__died">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <fai size="3x" icon="dizzy"/>
                                     </div>
-                                    <div class="col-6 total-case text-right">
-                                        {{death}}
+                                    <div class="col-8 total-case text-right">
+                                        {{death | separator}}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -51,11 +51,11 @@
                         <div class="card statistics case__recovery">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <fai size="3x" icon="grin"/>
                                     </div>
-                                    <div class="col-6 total-case text-right">
-                                        {{recovered}}
+                                    <div class="col-8 total-case text-right">
+                                        {{recovered | separator}}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -73,11 +73,11 @@
                         <div class="card statistics case__treatment ">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <fai size="3x" icon="meh"/>
                                     </div>
-                                    <div class="col-6 total-case text-right">
-                                        {{treatment}}
+                                    <div class="col-8 total-case text-right">
+                                        {{treatment | separator}}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -138,6 +138,15 @@
                 recovered: '-',
                 death: '-',
                 treatment: '-'
+            }
+        },
+        filters: {
+            separator: function (value) {
+                if (!value) return ''
+                var formattedValue = ''
+                value = value.toString().split('').reverse().join('')
+                for(var i = 0; i < value.length; i++) if(i%3 == 0) formattedValue += value.substr(i,3)+','
+                return formattedValue.split('',formattedValue.length-1).reverse().join('')
             }
         },
         methods: {
