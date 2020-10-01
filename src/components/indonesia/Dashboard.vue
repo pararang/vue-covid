@@ -121,7 +121,8 @@
         const timezone = getTimezone(dateValue) === '+0700' ? 'WIB' : getTimezone(dateValue)
         return getDate(dateValue) + ' | ' + getTime(dateValue) + ' ' + timezone
     }
-
+	const numeral = require('numeral')
+	
     export default {
         name: "SummaryIndonesia",
         components: {
@@ -143,10 +144,7 @@
         filters: {
             separator: function (value) {
                 if (!value) return ''
-                var formattedValue = ''
-                value = value.toString().split('').reverse().join('')
-                for(var i = 0; i < value.length; i++) if(i%3 == 0) formattedValue += value.substr(i,3)+','
-                return formattedValue.split('',formattedValue.length-1).reverse().join('')
+				return numeral(parseInt(value, 10)).format('0.0a')
             }
         },
         methods: {
