@@ -20,5 +20,8 @@ npm run build
 npm run lint
 ```
 
-### Data Resource
+## How to Contribute
+Please check the [rules](https://github.com/pararang/vue-covid/blob/master/CONTRIBUTING.md).  
+
+## Data Resource
 See [mathdroid/covid19](https://covid19.mathdro.id).
