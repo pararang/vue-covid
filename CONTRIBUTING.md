@@ -3,3 +3,4 @@
 2. Comment to the issue if you would solve it, and ask to be assigned to make sure there is no redundant PR from other contributor
 3. Please create an issue if you found a bug or an idea for new featur before make a PR
 4. Only work on issue that already assigned to you
+5. For the commit message, please refer to [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/#summary).
