@@ -88,10 +88,6 @@ export default {
           let dataConfirmed = [];
           let dataDeaths = [];
           let dataRecovery = [];
-          let countData = days.length;
-          let tickInterval = Math.floor(
-            (countData / 60) * this.chartOption.xAxis.tickInterval
-          );
           for (let [i, day] of days.entries()) {
             if (dates.indexOf(moment(day.tanggal).format("D/MM")) < 0) {
               dates.push(moment(day.tanggal).format("D/MM"));
@@ -109,6 +105,9 @@ export default {
               }
             }
           }
+
+          let countData = dataConfirmed.length;
+          let tickInterval = Math.floor((countData / 60) * 3);
 
           this.chartOption.xAxis.categories = dates;
           this.chartOption.xAxis.tickInterval = tickInterval;
