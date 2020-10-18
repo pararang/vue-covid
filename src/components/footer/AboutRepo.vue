@@ -3,7 +3,11 @@
         <div class="footer-copyright text-center py-3">© {{ currentYear }}
             <a :href="repoUrl">{{ repoDescription }}</a>
             <p>
-            <span v-for="people in repoContributors" v-bind:key="people.login" class="mb-4">
+            <span 
+                v-for="people in repoContributors"
+                v-bind:key="people.login" 
+                v-bind:style="{ padding: 3 + 'px' }" 
+                class="mb-4">
                 <b-avatar variant="info" :src="people.avatar_url" :href="people.html_url"></b-avatar>
             </span>
             </p>
@@ -30,7 +34,9 @@
         methods: {
             getDataContributors() {
                 apiGithub.getDataContributors().then((data) => {
-                    this.repoContributors = data;
+                    this.repoContributors = data.filter(function(people) {
+                        return people.html_url !== 'https://github.com/apps/dependabot';
+                    });
                 });
             },
             getDataRepo() {
